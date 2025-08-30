@@ -498,10 +498,10 @@ function leadership_coach_customizer_register($wp_customize)
     );
 
     /** Heading Font Selection */
-    $wp_customize->add_setting(
+$wp_customize->add_setting(
         'heading_font',
         array(
-            'default'           => 'Nunito',
+            'default'           => 'Lato',
             'sanitize_callback' => 'sanitize_text_field',
         )
     );
@@ -1754,10 +1754,7 @@ function coachpress_lite_footer_bottom()
         <div class="site-info">
             <div class="container">
                 <?php
-                coachpress_lite_get_footer_copyright();
-                echo esc_html__(' Leadership Coach | Developed By ', 'leadership-coach');
-                echo '<a href="' . esc_url('https://blossomthemes.com/wordpress-themes/leadership-coach/') . '" rel="nofollow" target="_blank">' . esc_html__('Blossom Themes', 'leadership-coach') . '</a>.';
-                printf(esc_html__(' Powered by %s. ', 'leadership-coach'), '<a href="' . esc_url(__('https://wordpress.org/', 'leadership-coach')) . '" target="_blank">WordPress</a>');
+                echo esc_html__('Copyright 2025 EmbracedParenting | Developed by AutomateThis', 'leadership-coach');
                 if (function_exists('the_privacy_policy_link')) {
                     the_privacy_policy_link();
                 }
@@ -1914,16 +1911,14 @@ function leadership_coach_fonts_url()
 {
     $fonts_url = '';
 
-    // Enhanced font families for coaching website
+    // Original theme fonts
     $font_families = array();
 
-    // Heading fonts: Nunito and Poppins
-    $font_families[] = 'Nunito:300,400,600,700,800';
-    $font_families[] = 'Poppins:300,400,500,600,700';
-
-    // Body fonts: Lora and Open Sans
+    // Lato (primary), Lora (secondary), Great Vibes (cursive), Noto Serif (site title)
+    $font_families[] = 'Lato:300,400,700,900';
     $font_families[] = 'Lora:400,500,600,700';
-    $font_families[] = 'Open+Sans:300,400,500,600,700';
+    $font_families[] = 'Great+Vibes:400';
+    $font_families[] = 'Noto+Serif:400,700';
 
     if (! empty($font_families)) {
         $query_args = array(
@@ -1958,15 +1953,15 @@ function leadership_coach_dynamic_css()
 
     $wheeloflife_color = get_theme_mod('wheeloflife_color', '#eef9f5');
 
-    // Enhanced color palette for coaching website
+// Enhanced color palette (purple/lilac defaults)
     $primary_purple = get_theme_mod('primary_purple', '#9B5DE5');
     $secondary_lilac = get_theme_mod('secondary_lilac', '#CBA6F7');
     $accent_pink = get_theme_mod('accent_pink', '#F6C6EA');
     $light_background = get_theme_mod('light_background', '#F8F6FA');
     $dark_text = get_theme_mod('dark_text', '#2E2C38');
 
-    // Enhanced typography settings
-    $heading_font = get_theme_mod('heading_font', 'Nunito');
+    // Typography settings (original theme)
+    $heading_font = get_theme_mod('heading_font', 'Lato');
     $body_font = get_theme_mod('body_font', 'Lora');
 
     echo "<style type='text/css' media='all'>"; ?>
@@ -2209,6 +2204,211 @@ function leadership_coach_add_appointment_capabilities()
     }
 }
 add_action('admin_init', 'leadership_coach_add_appointment_capabilities');
+
+/**
+ * Handle newsletter signup form submission
+ */
+function leadership_coach_handle_newsletter_signup()
+{
+    // Check if form was submitted
+    if (! isset($_POST['newsletter_nonce']) || ! wp_verify_nonce($_POST['newsletter_nonce'], 'newsletter_signup')) {
+        wp_redirect(add_query_arg('newsletter', 'error', wp_get_referer()));
+        exit;
+    }
+
+    // Check honeypot field (if added to forms)
+    if (isset($_POST['website']) && ! empty($_POST['website'])) {
+        wp_redirect(add_query_arg('newsletter', 'error', wp_get_referer()));
+        exit;
+    }
+
+    // Sanitize and validate form data
+    $name = sanitize_text_field($_POST['newsletter_name']);
+    $email = sanitize_email($_POST['newsletter_email']);
+
+    // Validate required fields
+    if (empty($email)) {
+        wp_redirect(add_query_arg('newsletter', 'error', wp_get_referer()));
+        exit;
+    }
+
+    // Validate email
+    if (! is_email($email)) {
+        wp_redirect(add_query_arg('newsletter', 'error', wp_get_referer()));
+        exit;
+    }
+
+    // Check if email already exists in our subscriber list
+    $subscribers = get_option('leadership_coach_newsletter_subscribers', array());
+    if (in_array($email, array_column($subscribers, 'email'))) {
+        wp_redirect(add_query_arg('newsletter', 'already_subscribed', wp_get_referer()));
+        exit;
+    }
+
+    // Add subscriber to our list
+    $new_subscriber = array(
+        'name' => $name,
+        'email' => $email,
+        'date_subscribed' => current_time('mysql'),
+        'status' => 'active'
+    );
+    
+    $subscribers[] = $new_subscriber;
+    update_option('leadership_coach_newsletter_subscribers', $subscribers);
+
+    // Send welcome email to subscriber (temporarily disabled)
+    // leadership_coach_send_newsletter_welcome_email($name, $email);
+
+    // Send notification to admin (temporarily disabled)
+    // leadership_coach_send_newsletter_admin_notification($name, $email);
+
+    // Redirect with success message
+    wp_redirect(add_query_arg('newsletter', 'success', wp_get_referer()));
+    exit;
+}
+add_action('admin_post_newsletter_signup', 'leadership_coach_handle_newsletter_signup');
+add_action('admin_post_nopriv_newsletter_signup', 'leadership_coach_handle_newsletter_signup');
+
+/**
+ * Send welcome email to newsletter subscriber
+ */
+function leadership_coach_send_newsletter_welcome_email($name, $email)
+{
+    $site_name = get_bloginfo('name');
+    $admin_email = get_option('admin_email');
+    
+    $subject = sprintf(__('Welcome to %s Newsletter!', 'leadership-coach'), $site_name);
+    
+    $display_name = !empty($name) ? $name : 'Friend';
+    
+    $message = sprintf(
+        __("Dear %s,\n\nWelcome to the EMBRACED Parenting community!\n\nThank you for signing up for our newsletter. You'll be the first to know when we release:\n\n• New parenting courses designed to support your journey\n• Insightful blog posts with practical tips and strategies\n• Resources to help you grow in connection and confidence as a parent\n\nOur approach is all about connection, not perfection. We're here to walk this parenting journey with you, offering support, understanding, and practical guidance every step of the way.\n\nIf you have any questions or just want to connect, feel free to reply to this email - I'd love to hear from you!\n\nWith warm regards and gratitude,\n[Your Name]\nCertified Parent Coach\n\n---\nYou're receiving this email because you signed up for our newsletter at %s\nTo unsubscribe, simply reply to this email with 'UNSUBSCRIBE' in the subject line.", 'leadership-coach'),
+        $display_name,
+        home_url()
+    );
+
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'From: ' . $site_name . ' <' . $admin_email . '>'
+    );
+
+    wp_mail($email, $subject, $message, $headers);
+}
+
+/**
+ * Send admin notification about new newsletter subscriber
+ */
+function leadership_coach_send_newsletter_admin_notification($name, $email)
+{
+    $admin_email = get_option('admin_email');
+    $site_name = get_bloginfo('name');
+    
+    $subject = sprintf(__('New Newsletter Subscriber - %s', 'leadership-coach'), $site_name);
+    
+    $message = sprintf(
+        __("A new subscriber has joined your newsletter:\n\nName: %s\nEmail: %s\nDate: %s\n\nTotal subscribers: %d\n\n---\nThis notification was sent from %s", 'leadership-coach'),
+        !empty($name) ? $name : 'Not provided',
+        $email,
+        current_time('F j, Y g:i A'),
+        count(get_option('leadership_coach_newsletter_subscribers', array())),
+        home_url()
+    );
+
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'From: ' . $site_name . ' <' . $admin_email . '>'
+    );
+
+    wp_mail($admin_email, $subject, $message, $headers);
+}
+
+/**
+ * Add newsletter management to admin menu
+ */
+function leadership_coach_add_newsletter_admin_menu()
+{
+    add_submenu_page(
+        'themes.php',
+        __('Newsletter Subscribers', 'leadership-coach'),
+        __('Newsletter', 'leadership-coach'),
+        'manage_options',
+        'newsletter-subscribers',
+        'leadership_coach_newsletter_admin_page'
+    );
+}
+add_action('admin_menu', 'leadership_coach_add_newsletter_admin_menu');
+
+/**
+ * Newsletter admin page
+ */
+function leadership_coach_newsletter_admin_page()
+{
+    $subscribers = get_option('leadership_coach_newsletter_subscribers', array());
+    
+    echo '<div class="wrap">';
+    echo '<h1>' . esc_html__('Newsletter Subscribers', 'leadership-coach') . '</h1>';
+    
+    if (empty($subscribers)) {
+        echo '<p>' . esc_html__('No subscribers yet.', 'leadership-coach') . '</p>';
+    } else {
+        echo '<p>' . sprintf(esc_html__('Total subscribers: %d', 'leadership-coach'), count($subscribers)) . '</p>';
+        echo '<table class="wp-list-table widefat fixed striped">';
+        echo '<thead><tr><th>' . esc_html__('Name', 'leadership-coach') . '</th><th>' . esc_html__('Email', 'leadership-coach') . '</th><th>' . esc_html__('Date Subscribed', 'leadership-coach') . '</th><th>' . esc_html__('Status', 'leadership-coach') . '</th></tr></thead>';
+        echo '<tbody>';
+        
+        foreach ($subscribers as $subscriber) {
+            echo '<tr>';
+            echo '<td>' . esc_html($subscriber['name'] ?: 'N/A') . '</td>';
+            echo '<td>' . esc_html($subscriber['email']) . '</td>';
+            echo '<td>' . esc_html(date('F j, Y', strtotime($subscriber['date_subscribed']))) . '</td>';
+            echo '<td>' . esc_html($subscriber['status']) . '</td>';
+            echo '</tr>';
+        }
+        
+        echo '</tbody></table>';
+        
+        // Export functionality
+        echo '<h2>' . esc_html__('Export Subscribers', 'leadership-coach') . '</h2>';
+        echo '<p>' . esc_html__('Click below to download a CSV file of all subscribers:', 'leadership-coach') . '</p>';
+        echo '<a href="' . esc_url(add_query_arg('export_newsletter', 'csv', admin_url('admin.php?page=newsletter-subscribers'))) . '" class="button button-secondary">' . esc_html__('Export to CSV', 'leadership-coach') . '</a>';
+    }
+    
+    echo '</div>';
+}
+
+/**
+ * Handle newsletter CSV export
+ */
+function leadership_coach_handle_newsletter_export()
+{
+    if (isset($_GET['export_newsletter']) && $_GET['export_newsletter'] === 'csv' && current_user_can('manage_options')) {
+        $subscribers = get_option('leadership_coach_newsletter_subscribers', array());
+        
+        if (!empty($subscribers)) {
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="newsletter-subscribers-' . date('Y-m-d') . '.csv"');
+            
+            $output = fopen('php://output', 'w');
+            
+            // CSV headers
+            fputcsv($output, array('Name', 'Email', 'Date Subscribed', 'Status'));
+            
+            // CSV data
+            foreach ($subscribers as $subscriber) {
+                fputcsv($output, array(
+                    $subscriber['name'] ?: 'N/A',
+                    $subscriber['email'],
+                    $subscriber['date_subscribed'],
+                    $subscriber['status']
+                ));
+            }
+            
+            fclose($output);
+            exit;
+        }
+    }
+}
+add_action('admin_init', 'leadership_coach_handle_newsletter_export');
 
 /**
  * Enhanced availability checking with business rules

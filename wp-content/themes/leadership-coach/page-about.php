@@ -86,19 +86,8 @@ get_header(); ?>
                         </div>
                     <?php endif; ?>
 
-                    <!-- Call to Action Section -->
-                    <div class="about-cta">
-                        <h2><?php esc_html_e( 'Ready to Start Your Leadership Journey?', 'leadership-coach' ); ?></h2>
-                        <p><?php esc_html_e( 'Let\'s work together to unlock your leadership potential and achieve your goals.', 'leadership-coach' ); ?></p>
-                        <div class="cta-buttons">
-                            <a href="<?php echo esc_url( home_url( '/contact' ) ); ?>" class="btn-primary">
-                                <?php esc_html_e( 'Get in Touch', 'leadership-coach' ); ?>
-                            </a>
-                            <a href="<?php echo esc_url( home_url( '/calendar' ) ); ?>" class="btn-secondary">
-                                <?php esc_html_e( 'Book Discovery Call', 'leadership-coach' ); ?>
-                            </a>
-                        </div>
-                    </div>
+
+
 
                 </div><!-- .entry-content -->
 

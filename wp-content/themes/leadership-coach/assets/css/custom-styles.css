@@ -3,6 +3,12 @@
  * Enhanced Color Palette and Typography System
  */
 
+:root {
+    /* Fallbacks in case parent theme doesn't define these */
+    --white-color: #ffffff;
+    --primary-purple-rgb: 155, 93, 229;
+}
+
 /* ===================================
    ENHANCED COLOR PALETTE IMPLEMENTATION
    =================================== */
@@ -175,7 +181,6 @@ p,
 
 /* Card and section styling */
 .widget,
-.entry-content,
 .site-banner {
     background-color: var(--light-background);
     border-radius: 8px;
@@ -616,6 +621,27 @@ select:focus {
    HOMEPAGE STYLES
    =================================== */
 
+/* Section spacing helpers */
+.hero-section,
+.embraced-section,
+.parenting-challenges,
+.about-preview,
+.work-together-section,
+.testimonials-section,
+.newsletter-section,
+.final-cta-section {
+    padding: 4rem 0;
+}
+
+/* Centered section title defaults */
+.section-title {
+    text-align: center;
+    font-family: var(--heading-font);
+    font-size: var(--font-size-3xl);
+    color: var(--primary-purple);
+    margin-bottom: 2rem;
+}
+
 /* Homepage Styles */
 .hero-section {
     background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac));
@@ -694,7 +720,75 @@ select:focus {
     font-size: var(--font-size-lg);
 }
 
-/* Services Section */
+/* EMBRACED Framework Section */
+.embraced-section {
+    background: #fff;
+}
+
+.embraced-section .framework-intro {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    text-align: center;
+}
+
+.embraced-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.embraced-card {
+    background: var(--light-background);
+    border: 1px solid rgba(var(--primary-purple-rgb), 0.15);
+    border-radius: 14px;
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+
+.embraced-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac));
+    color: var(--white-color);
+    font-weight: 700;
+    margin-bottom: .75rem;
+}
+
+.embraced-card h3 {
+    margin: .25rem 0 .5rem;
+    font-size: 1.1rem;
+    color: var(--primary-purple);
+}
+
+.framework-conclusion {
+    text-align: center;
+    max-width: 900px;
+    margin: 2rem auto 0;
+}
+
+/* Why Parenting Can Feel Overwhelming */
+.parenting-challenges {
+    background: linear-gradient(180deg, rgba(var(--primary-purple-rgb), .06), rgba(203, 166, 247, .08));
+}
+
+.parenting-challenges .challenges-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.parenting-challenges p {
+    font-size: 1.05rem;
+}
+
+/* Services Section (legacy grid kept for Services page) */
 .services-section {
     padding: 4rem 0;
     background: var(--light-background);
@@ -785,6 +879,173 @@ select:focus {
     font-weight: 600;
 }
 
+/* Work Together */
+.work-together-section {
+    background: #fff;
+}
+
+.work-together-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.work-card {
+    background: var(--light-background);
+    border: 1px solid rgba(var(--primary-purple-rgb), 0.15);
+    border-radius: 14px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure buttons align across cards by pinning them to the bottom */
+.work-card .btn {
+    margin-top: auto;
+}
+
+/* On light card backgrounds, use outline-style secondary buttons for readability */
+.work-together-section .btn-secondary {
+    background: transparent;
+    color: var(--primary-purple);
+    border-color: var(--primary-purple);
+}
+
+.work-together-section .btn-secondary:hover {
+    background: var(--primary-purple);
+    color: var(--white-color);
+}
+
+.work-icon { font-size: 1.75rem; margin-bottom: .5rem; }
+
+/* Testimonials */
+.testimonials-section { background: var(--light-background); }
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.testimonial-card {
+    background: #fff;
+    border: 1px solid rgba(var(--primary-purple-rgb), .15);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+}
+.testimonial-card blockquote { margin: 0 0 .75rem; font-style: italic; }
+.testimonial-card cite { color: var(--primary-purple); font-weight: 600; }
+
+/* Newsletter */
+.newsletter-section {
+    background: linear-gradient(135deg, rgba(var(--primary-purple-rgb), .06) 0%, rgba(203,166,247,.12) 100%);
+    border-radius: 14px;
+}
+.newsletter-section .section-title { margin-bottom: .5rem; }
+.newsletter-section p { text-align: center; max-width: 900px; margin: 0 auto 1rem; }
+
+/* Base form sizing */
+.newsletter-form { max-width: 900px; margin: 0 auto; }
+
+/* Force correct layout across the site (overrides blog-styles.css) */
+.newsletter-section .newsletter-form .form-group,
+.newsletter-signup-section .newsletter-form .form-group,
+body .newsletter-form .form-group {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr auto !important;
+    gap: .75rem !important;
+    align-items: center !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+}
+
+.newsletter-section .newsletter-form input[type="text"],
+.newsletter-section .newsletter-form input[type="email"],
+.newsletter-signup-section .newsletter-form input[type="text"],
+.newsletter-signup-section .newsletter-form input[type="email"],
+body .newsletter-form input[type="text"],
+body .newsletter-form input[type="email"],
+.newsletter-form .form-control {
+    height: 52px;
+    border-radius: 12px;
+    background: #fff;
+    width: 100% !important;
+    flex: 0 1 auto !important;
+}
+
+/* Ensure all children in the grid stretch properly */
+.newsletter-section .newsletter-form .form-group > *,
+.newsletter-signup-section .newsletter-form .form-group > *,
+body .newsletter-form .form-group > * {
+    min-width: 0;
+    justify-self: stretch;
+    align-self: stretch;
+}
+
+.newsletter-form button,
+.newsletter-section .newsletter-form button,
+.newsletter-signup-section .newsletter-form button { height: 52px; border-radius: 26px; white-space: nowrap; }
+
+/* Remove generic page box background on About/Services */
+.page-template-page-about-php .entry-content,
+.page-template-page-services-php .entry-content { background: transparent !important; border-radius: 0 !important; box-shadow: none !important; }
+
+/* About Page Polishing */
+.page-template-page-about-php .entry-content { max-width: 980px; margin: 0 auto; padding: 0 1rem 2rem; }
+/* Normalize heading sizes on About editable content */
+.page-template-page-about-php .about-main-content h1 { font-size: var(--font-size-3xl); margin-bottom: .75rem; }
+.page-template-page-about-php .about-main-content h2 { font-size: var(--font-size-2xl); margin: .75rem 0 .5rem; }
+.page-template-page-about-php .about-main-content h3 { font-size: var(--font-size-xl); margin: .5rem 0 .25rem; }
+.page-template-page-about-php .about-main-content p { line-height: 1.7; font-size: 1.05rem; }
+.about-hero-image { width: 100%; height: 360px; object-fit: cover; border-radius: 14px; margin-bottom: 1.5rem; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+.about-photo { width: 100%; height: 300px; object-fit: cover; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+
+.coach-credentials,
+.coach-experience,
+.coach-specializations,
+.coach-philosophy { 
+    background: #fff; 
+    border: 1px solid rgba(var(--primary-purple-rgb), .12); 
+    border-left: 5px solid var(--primary-purple); 
+    border-radius: 14px; 
+    padding: 1.25rem 1.5rem; 
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04); 
+    margin: 1rem 0 1.25rem; 
+}
+.page-template-page-about-php .entry-content h2 { font-family: var(--heading-font); color: var(--primary-purple); margin-bottom: .5rem; }
+.page-template-page-about-php .about-cta { text-align:center; background: linear-gradient(135deg, rgba(var(--primary-purple-rgb), .06), rgba(203,166,247,.12)); padding: 1.75rem; border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,.04); }
+.page-template-page-about-php .about-cta .btn-primary, .page-template-page-about-php .about-cta .btn-secondary { margin: .25rem .35rem; }
+
+/* Services Page Polishing */
+.page-template-page-services-php .services-hero-image { width: 100%; height: 360px; object-fit: cover; border-radius: 14px; margin-bottom: 1.5rem; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+.page-template-page-services-php .services-intro { max-width: 980px; margin: 0 auto 2rem; padding: 0 1rem; }
+/* Normalize heading sizes coming from editable content */
+.page-template-page-services-php .services-intro h1 { font-size: var(--font-size-3xl); margin-bottom: .75rem; }
+.page-template-page-services-php .services-intro h2 { font-size: var(--font-size-2xl); margin: .75rem 0 .5rem; }
+.page-template-page-services-php .services-intro h3 { font-size: var(--font-size-xl); margin: .5rem 0 .25rem; }
+.page-template-page-services-php .services-intro p { line-height: 1.7; font-size: 1.05rem; }
+
+.page-template-page-services-php .services-cta { text-align:center; background: linear-gradient(135deg, rgba(var(--primary-purple-rgb), .06), rgba(203,166,247,.12)); padding: 2rem 1.5rem; border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,.04); margin-top: 2rem; }
+.page-template-page-services-php .services-cta .btn-primary, .page-template-page-services-php .services-cta .btn-secondary { margin: .25rem .35rem; }
+.page-template-page-services-php .newsletter-signup-section { background: linear-gradient(135deg, rgba(var(--primary-purple-rgb), .04), rgba(203,166,247,.08)); padding: 1.5rem; border-radius: 14px; margin: 1.5rem 0 2rem; }
+/* Service meta and card polish */
+.page-template-page-services-php .service-card { text-align: center; }
+.page-template-page-services-php .service-meta { display:flex; gap:.75rem; justify-content:center; align-items:center; margin: .5rem 0 1rem; }
+.page-template-page-services-php .service-meta span { background: rgba(var(--primary-purple-rgb), .08); padding:.25rem .6rem; border-radius: 999px; font-size: .95rem; color: var(--dark-text); }
+.page-template-page-services-php .service-actions { margin-top: .5rem; }
+
+/* Final CTA */
+.final-cta-section {
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac));
+    color: var(--white-color);
+    text-align: center;
+}
+.final-cta-section p { max-width: 820px; margin: 0.5rem auto 1.5rem; }
+
 /* CTA Section */
 .cta-section {
     background: var(--primary-purple);
@@ -816,6 +1077,10 @@ select:focus {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .newsletter-form .form-group {
+        grid-template-columns: 1fr;
+    }
+    .newsletter-form button { width: 100%; }
     .hero-title {
         font-size: var(--font-size-3xl);
     }
@@ -838,4 +1103,42 @@ select:focus {
     .services-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Global button hover normalization: mimic .btn-outline hover on all buttons */
+.btn:hover,
+.btn.btn:hover {
+    background: var(--primary-purple);
+    color: var(--white-color);
+    border-color: var(--primary-purple);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Keep forms consistent, including submits without .btn class */
+.contact-form .contact-submit:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+button:hover {
+    background: var(--primary-purple);
+    color: var(--white-color);
+    border-color: var(--primary-purple);
+    transform: none;
+    box-shadow: none;
+}
+
+/* Global color override: neutral palette on all pages */
+:root {
+    --primary-purple: #D4A5A5 !important;      /* primary accent */
+    --secondary-lilac: #EADADA !important;     /* secondary light */
+    --accent-pink: #F4E7E7 !important;
+    --light-background: #FAF7F7 !important;
+    --dark-text: #2E2C38 !important;
+
+    /* RGB forms for rgba() usages */
+    --primary-purple-rgb: 212,165,165 !important;
+    --secondary-lilac-rgb: 234,218,218 !important;
+    --light-background-rgb: 250,247,247 !important;
+    --dark-text-rgb: 46,44,56 !important;
 }

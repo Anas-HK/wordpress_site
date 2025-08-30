@@ -15,8 +15,8 @@ get_header(); ?>
         
         <div class="blog-header">
             <div class="container">
-                <h1 class="blog-title"><?php esc_html_e( 'Leadership Insights & Tips', 'leadership-coach' ); ?></h1>
-                <p class="blog-description"><?php esc_html_e( 'Discover strategies, insights, and practical tips to enhance your leadership journey and drive meaningful change in your organization.', 'leadership-coach' ); ?></p>
+                <h1 class="blog-title"><?php esc_html_e( 'Parenting Insights & Tips', 'leadership-coach' ); ?></h1>
+                <p class="blog-description"><?php esc_html_e( 'Discover strategies, insights, and practical guidance to support you on your parenting journey. Find tips, reflections, and heart-centered approaches to help you grow in connection, emotional intelligence, and confidence as a parent.', 'leadership-coach' ); ?></p>
             </div>
         </div>
 
@@ -143,8 +143,9 @@ get_header(); ?>
                         else :
                         ?>
                             <div class="no-posts">
-                                <h3><?php esc_html_e( 'No Articles Yet', 'leadership-coach' ); ?></h3>
-                                <p><?php esc_html_e( 'We\'re working on creating valuable content for you. Check back soon for leadership insights and tips!', 'leadership-coach' ); ?></p>
+                                <h3><?php esc_html_e( 'Blogs Coming Soon!', 'leadership-coach' ); ?></h3>
+                                <p><?php esc_html_e( 'I\'ll be sharing insightful and inspiring blog posts to support parents in their day-to-day journey. These blogs will offer tips, reflections, and practical guidance to help you grow in connection, emotional intelligence, and confidence as a parent.', 'leadership-coach' ); ?></p>
+                                <p><?php esc_html_e( 'Stay tuned and join our mailing list below to be the first to know when new content is available!', 'leadership-coach' ); ?></p>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -167,25 +168,27 @@ get_header(); ?>
                     <?php wp_reset_postdata(); ?>
                 </section>
 
-                <!-- Newsletter Signup -->
+                <!-- Newsletter Signup (temporarily disabled)
                 <section class="newsletter-section">
                     <div class="newsletter-content">
                         <h2><?php esc_html_e( 'Stay Updated', 'leadership-coach' ); ?></h2>
-                        <p><?php esc_html_e( 'Get the latest leadership insights and tips delivered directly to your inbox.', 'leadership-coach' ); ?></p>
+                        <p><?php esc_html_e( 'Want to be the first to know when new courses or blogs are released? Sign up for our mailing list and stay connected:', 'leadership-coach' ); ?></p>
                         
                         <form class="newsletter-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
                             <?php wp_nonce_field('newsletter_signup', 'newsletter_nonce'); ?>
                             <input type="hidden" name="action" value="newsletter_signup">
                             
                             <div class="form-group">
-                                <input type="email" name="newsletter_email" placeholder="<?php esc_attr_e('Enter your email address', 'leadership-coach'); ?>" required>
+                                <input type="text" name="newsletter_name" placeholder="<?php esc_attr_e('Name (optional)', 'leadership-coach'); ?>" class="form-control">
+                                <input type="email" name="newsletter_email" placeholder="<?php esc_attr_e('Email Address (required)', 'leadership-coach'); ?>" required class="form-control">
                                 <button type="submit" class="btn-primary">
-                                    <?php esc_html_e('Subscribe', 'leadership-coach'); ?>
+                                    👉 <?php esc_html_e('Read and Grow With Me Soon', 'leadership-coach'); ?>
                                 </button>
                             </div>
                         </form>
                     </div>
                 </section>
+                -->
 
             </div>
         </div>

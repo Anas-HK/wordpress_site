@@ -135,8 +135,10 @@ get_header(); ?>
                                         <select id="contact_subject" name="contact_subject">
                                             <option value=""><?php esc_html_e( 'Select a subject', 'leadership-coach' ); ?></option>
                                             <option value="general"><?php esc_html_e( 'General Inquiry', 'leadership-coach' ); ?></option>
-                                            <option value="coaching"><?php esc_html_e( 'Coaching Services', 'leadership-coach' ); ?></option>
-                                            <option value="booking"><?php esc_html_e( 'Appointment Booking', 'leadership-coach' ); ?></option>
+                                            <option value="parenting-coaching"><?php esc_html_e( 'Parenting Coaching Services', 'leadership-coach' ); ?></option>
+                                            <option value="discovery-call"><?php esc_html_e( 'Discovery Call Questions', 'leadership-coach' ); ?></option>
+                                            <option value="embraced-framework"><?php esc_html_e( 'EMBRACED Framework', 'leadership-coach' ); ?></option>
+                                            <option value="courses"><?php esc_html_e( 'Upcoming Courses', 'leadership-coach' ); ?></option>
                                             <option value="other"><?php esc_html_e( 'Other', 'leadership-coach' ); ?></option>
                                         </select>
                                     </div>
@@ -193,28 +195,17 @@ get_header(); ?>
                         
                     </div><!-- .contact-content-wrapper -->
 
-                    <!-- Map Integration Placeholder -->
-                    <div class="contact-map-placeholder">
-                        <h2><?php esc_html_e( 'Find Us', 'leadership-coach' ); ?></h2>
-                        <div class="map-container">
-                            <div class="map-placeholder">
-                                <i class="fas fa-map-marked-alt"></i>
-                                <p><?php esc_html_e( 'Interactive map will be integrated here in future updates.', 'leadership-coach' ); ?></p>
-                                <p><?php esc_html_e( 'For now, please use the address above for directions.', 'leadership-coach' ); ?></p>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Quick Actions Section -->
                     <div class="contact-quick-actions">
-                        <h2><?php esc_html_e( 'Ready to Get Started?', 'leadership-coach' ); ?></h2>
-                        <p><?php esc_html_e( 'Take the first step towards your leadership transformation today.', 'leadership-coach' ); ?></p>
+                        <h2><?php esc_html_e( 'Ready to Begin This Parenting Journey?', 'leadership-coach' ); ?></h2>
+                        <p><?php esc_html_e( 'Take the first step towards more connected, confident parenting. Parenting is a journey best walked together, and I\'m here to support you every step of the way.', 'leadership-coach' ); ?></p>
                         <div class="quick-action-buttons">
                             <a href="<?php echo esc_url( home_url( '/calendar' ) ); ?>" class="btn-primary">
-                                <?php esc_html_e( 'Book Free Discovery Call', 'leadership-coach' ); ?>
+                                <?php esc_html_e( 'Book Your Free Discovery Call', 'leadership-coach' ); ?>
                             </a>
                             <a href="<?php echo esc_url( home_url( '/services' ) ); ?>" class="btn-secondary">
-                                <?php esc_html_e( 'View Our Services', 'leadership-coach' ); ?>
+                                <?php esc_html_e( 'View Parenting Services', 'leadership-coach' ); ?>
                             </a>
                         </div>
                     </div>
