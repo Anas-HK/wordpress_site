@@ -1,0 +1,372 @@
+/**
+ * Simple Calendar Booking Styles
+ * 
+ * Clean two-column layout for calendar booking
+ * 
+ * @package Leadership_Coach
+ * @since 1.0.0
+ */
+
+/* Main Container */
+.simple-booking-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-top: 60px; /* Account for fixed navbar */
+}
+
+/* Booking Messages */
+.booking-message {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.booking-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 2px solid #22c55e;
+    color: #15803d;
+}
+
+.booking-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid #ef4444;
+    color: #dc2626;
+}
+
+/* Two Column Layout */
+.simple-booking-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Left Side - Calendar */
+.booking-left {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Meeting Info */
+.meeting-info {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.meeting-info h2 {
+    color: var(--dark-text, #2E2C38);
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.meeting-duration,
+.meeting-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.duration-icon,
+.details-icon {
+    font-size: 1rem;
+}
+
+/* Calendar Styles */
+.simple-calendar {
+    width: 100%;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-title {
+    color: var(--dark-text, #2E2C38);
+    font-family: var(--heading-font);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.calendar-nav {
+    background: none;
+    border: none;
+    color: var(--primary-purple, #9B5DE5);
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.calendar-nav:hover {
+    background: rgba(var(--primary-purple-rgb), 0.1);
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.weekday {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.calendar-day.empty {
+    cursor: default;
+}
+
+.calendar-day.available {
+    background: rgba(var(--primary-purple-rgb), 0.05);
+    color: var(--primary-purple, #9B5DE5);
+    border: 1px solid rgba(var(--primary-purple-rgb), 0.2);
+}
+
+.calendar-day.available:hover {
+    background: rgba(var(--primary-purple-rgb), 0.1);
+    transform: scale(1.05);
+}
+
+.calendar-day.unavailable {
+    color: #d1d5db;
+    cursor: not-allowed;
+}
+
+.calendar-day.selected {
+    background: var(--primary-purple, #9B5DE5);
+    color: white;
+    transform: scale(1.05);
+}
+
+.timezone-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    font-size: 0.85rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Time Selection */
+.time-selection {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.time-selection h4 {
+    color: var(--dark-text, #2E2C38);
+    font-family: var(--heading-font);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.times-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.time-btn {
+    background: rgba(var(--primary-purple-rgb), 0.05);
+    border: 1px solid rgba(var(--primary-purple-rgb), 0.2);
+    border-radius: 6px;
+    color: var(--primary-purple, #9B5DE5);
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0.75rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.time-btn:hover {
+    background: rgba(var(--primary-purple-rgb), 0.1);
+}
+
+.time-btn.selected {
+    background: var(--primary-purple, #9B5DE5);
+    color: white;
+}
+
+/* Right Side - Form */
+.booking-right {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-right h3 {
+    color: var(--dark-text, #2E2C38);
+    font-family: var(--heading-font);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Styles */
+.simple-booking-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.simple-booking-form label {
+    display: block;
+    color: var(--dark-text, #2E2C38);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.simple-booking-form input,
+.simple-booking-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.simple-booking-form input:focus,
+.simple-booking-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-purple, #9B5DE5);
+}
+
+.simple-booking-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Selected DateTime Display */
+.selected-datetime {
+    background: rgba(var(--primary-purple-rgb), 0.05);
+    border: 1px solid rgba(var(--primary-purple-rgb), 0.2);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.selected-datetime p {
+    margin: 0;
+    color: var(--primary-purple, #9B5DE5);
+    font-weight: 500;
+}
+
+/* Schedule Button */
+.schedule-btn {
+    width: 100%;
+    background: #d1d5db;
+    border: none;
+    border-radius: 6px;
+    color: #6b7280;
+    cursor: not-allowed;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.schedule-btn.enabled {
+    background: var(--primary-purple, #9B5DE5);
+    color: white;
+    cursor: pointer;
+}
+
+.schedule-btn.enabled:hover {
+    background: var(--secondary-lilac, #CBA6F7);
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .simple-booking-wrapper {
+        padding: 1rem;
+    }
+    
+    .simple-booking-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .booking-left,
+    .booking-right {
+        padding: 1.5rem;
+    }
+    
+    .calendar-days {
+        gap: 2px;
+    }
+    
+    .calendar-day {
+        font-size: 0.9rem;
+    }
+    
+    .times-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .simple-booking-wrapper {
+        padding: 0.5rem;
+    }
+    
+    .booking-left,
+    .booking-right {
+        padding: 1rem;
+    }
+    
+    .meeting-info h2 {
+        font-size: 1.25rem;
+    }
+    
+    .calendar-title {
+        font-size: 1.1rem;
+    }
+    
+    .calendar-day {
+        font-size: 0.8rem;
+    }
+}

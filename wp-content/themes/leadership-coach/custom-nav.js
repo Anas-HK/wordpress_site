@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li><a href="${window.location.origin}">Home</a></li>
                     <li><a href="${window.location.origin}/about">About</a></li>
                     <li><a href="${window.location.origin}/services">Services</a></li>
+                    <li><a href="${window.location.origin}/blog">Blog</a></li>
                     <li><a href="${window.location.origin}/calendar">Calendar</a></li>
                     <li><a href="${window.location.origin}/contact">Contact</a></li>
                 </ul>

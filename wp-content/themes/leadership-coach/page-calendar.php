@@ -1,8 +1,9 @@
 <?php
+
 /**
- * Template Name: Calendar & Booking
+ * Template Name: Book Appointment
  * 
- * The template for displaying the appointment booking calendar page
+ * The template for displaying the appointment booking page with Calendly integration
  *
  * @package Leadership_Coach
  * @since 1.0.0
@@ -12,196 +13,368 @@ get_header(); ?>
 
 <div id="primary" class="content-area">
     <main id="main" class="site-main">
-        
-        <?php while ( have_posts() ) : the_post(); ?>
-            
+
+        <?php while (have_posts()) : the_post(); ?>
+
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                
-                <header class="entry-header">
-                    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-                </header>
+
 
                 <div class="entry-content">
-                    
+
                     <?php the_content(); ?>
+
+                    <!-- Critical CSS for Hybrid Calendar Page -->
+                    <style>
+                    /* Force full width layout */
+                    .entry-content { max-width: none !important; width: 100% !important; }
+                    .content-area { max-width: none !important; width: 100% !important; }
+                    .site-main { max-width: none !important; }
                     
-                    <div class="booking-system-container">
-                        
-                        <!-- Booking Form -->
-                        <div class="booking-form-section">
-                            <h2><?php esc_html_e( 'Book Your Appointment', 'leadership-coach' ); ?></h2>
-                            
-                            <form id="appointment-booking-form" class="appointment-form" method="post" action="">
-                                
-                                <?php wp_nonce_field( 'book_appointment', 'appointment_nonce' ); ?>
-                                
-                                <!-- Service Selection -->
-                                <div class="form-group">
-                                    <label for="service_type"><?php esc_html_e( 'Select Service', 'leadership-coach' ); ?> <span class="required">*</span></label>
-                                    <select id="service_type" name="service_type" required>
-                                        <option value=""><?php esc_html_e( 'Choose a service...', 'leadership-coach' ); ?></option>
-                                        <?php
-                                        // Get available services
-                                        $services = get_posts( array(
-                                            'post_type' => 'coaching_service',
-                                            'post_status' => 'publish',
-                                            'numberposts' => -1,
-                                            'meta_query' => array(
-                                                array(
-                                                    'key' => '_service_is_bookable',
-                                                    'value' => '1',
-                                                    'compare' => '='
-                                                )
-                                            )
-                                        ) );
-                                        
-                                        foreach ( $services as $service ) {
-                                            $price = get_post_meta( $service->ID, '_service_price', true );
-                                            $duration = get_post_meta( $service->ID, '_service_duration', true );
-                                            $service_info = $service->post_title;
-                                            if ( $price ) {
-                                                $service_info .= ' - ' . esc_html( $price );
-                                            }
-                                            if ( $duration ) {
-                                                $service_info .= ' (' . esc_html( $duration ) . ')';
-                                            }
-                                            echo '<option value="' . esc_attr( $service->post_title ) . '">' . esc_html( $service_info ) . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                
-                                <!-- Hidden Date/Time Fields (populated by calendar widget) -->
-                                <input type="hidden" id="appointment_date" name="appointment_date" required>
-                                <input type="hidden" id="appointment_time" name="appointment_time" required>
-                                
-                                <!-- Selected Appointment Display -->
-                                <div class="form-group selected-appointment-display" id="selected-appointment-display" style="display: none;">
-                                    <label><?php esc_html_e( 'Selected Appointment', 'leadership-coach' ); ?></label>
-                                    <div class="selected-appointment-info">
-                                        <div class="selected-date-time">
-                                            <span id="selected-date-text"></span> at <span id="selected-time-text"></span>
-                                        </div>
-                                        <button type="button" class="change-selection-btn" onclick="window.CalendarWidget && window.CalendarWidget.resetSelection()">
-                                            <?php esc_html_e( 'Change Selection', 'leadership-coach' ); ?>
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Client Information -->
-                                <fieldset class="client-info-fieldset">
-                                    <legend><?php esc_html_e( 'Your Information', 'leadership-coach' ); ?></legend>
-                                    
-                                    <div class="form-group">
-                                        <label for="client_name"><?php esc_html_e( 'Full Name', 'leadership-coach' ); ?> <span class="required">*</span></label>
-                                        <input type="text" id="client_name" name="client_name" required maxlength="100">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="client_email"><?php esc_html_e( 'Email Address', 'leadership-coach' ); ?> <span class="required">*</span></label>
-                                        <input type="email" id="client_email" name="client_email" required maxlength="100">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="client_phone"><?php esc_html_e( 'Phone Number', 'leadership-coach' ); ?></label>
-                                        <input type="tel" id="client_phone" name="client_phone" maxlength="20">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="appointment_notes"><?php esc_html_e( 'Additional Notes', 'leadership-coach' ); ?></label>
-                                        <textarea id="appointment_notes" name="appointment_notes" rows="4" placeholder="<?php esc_attr_e( 'Any specific topics you\'d like to discuss or questions you have...', 'leadership-coach' ); ?>"></textarea>
-                                    </div>
-                                    
-                                </fieldset>
-                                
-                                <!-- Form Actions -->
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary booking-submit-btn">
-                                        <span class="btn-text"><?php esc_html_e( 'Book Appointment', 'leadership-coach' ); ?></span>
-                                        <span class="btn-loading" style="display: none;"><?php esc_html_e( 'Booking...', 'leadership-coach' ); ?></span>
-                                    </button>
-                                </div>
-                                
-                            </form>
-                            
-                            <!-- Form Messages -->
-                            <div id="booking-messages" class="form-messages" style="display: none;">
-                                <div class="message-content"></div>
-                            </div>
-                            
+                    /* Hybrid Booking Layout */
+                    .hybrid-booking-wrapper {
+                        max-width: 1200px;
+                        margin: 0 auto;
+                        padding: 2rem;
+                    }
+                    
+                    .booking-intro {
+                        text-align: center;
+                        margin-bottom: 3rem;
+                    }
+                    
+                    .booking-intro h2 {
+                        color: #9b5de5;
+                        font-size: 2.5rem;
+                        margin-bottom: 1rem;
+                        font-weight: 700;
+                    }
+                    
+                    .booking-intro p {
+                        font-size: 1.2rem;
+                        color: #666;
+                        max-width: 600px;
+                        margin: 0 auto;
+                        line-height: 1.6;
+                    }
+                    
+                    .hybrid-booking-layout {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: 2rem;
+                        margin-top: 3rem;
+                    }
+                    
+                    /* Left Column - Calendly */
+                    .booking-left {
+                        background: white;
+                        border-radius: 16px;
+                        padding: 2rem;
+                        box-shadow: 0 8px 30px rgba(155, 93, 229, 0.1);
+                        border: 1px solid rgba(155, 93, 229, 0.1);
+                    }
+
+                    /* Calendly Embed Container ensures large height */
+                    #calendly-embed {
+                        width: 100%;
+                        min-height: 1000px;
+                    }
+                    #calendly-embed .calendly-inline-widget,
+                    .booking-left iframe[src*="calendly.com"] {
+                        height: 1200px !important;
+                        min-height: 1000px !important;
+                        max-height: none !important;
+                        width: 100% !important;
+                    }
+                    
+                    .booking-left h3 {
+                        color: #9b5de5;
+                        font-size: 1.5rem;
+                        margin-bottom: 1rem;
+                        font-weight: 600;
+                    }
+                    
+                    .booking-left p {
+                        color: #666;
+                        margin-bottom: 1.5rem;
+                        line-height: 1.6;
+                    }
+                    
+                    .calendly-inline-widget {
+                        width: 100% !important;
+                        height: 1000px !important;
+                        min-height: 900px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        border: 1px solid #e0e0e0;
+                    }
+                    
+                    .calendly-fallback {
+                        text-align: center;
+                        padding: 3rem 2rem;
+                        background: #f8f6fa;
+                        border-radius: 12px;
+                        border: 2px dashed #cba6f7;
+                    }
+                    
+                    .calendly-fallback h4 {
+                        color: #9b5de5;
+                        margin-bottom: 1rem;
+                    }
+                    
+                    .calendly-fallback p {
+                        margin-bottom: 1.5rem;
+                    }
+                    
+                    /* Button Styles */
+                    .btn-primary, .btn-secondary {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 25px;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 1rem;
+                        transition: all 0.3s ease;
+                        border: none;
+                        cursor: pointer;
+                    }
+                    
+                    .btn-primary {
+                        background: linear-gradient(135deg, #9b5de5, #cba6f7);
+                        color: white;
+                        box-shadow: 0 4px 15px rgba(155, 93, 229, 0.3);
+                    }
+                    
+                    .btn-primary:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 8px 25px rgba(155, 93, 229, 0.4);
+                        color: white;
+                    }
+                    
+                    .btn-secondary {
+                        background: white;
+                        color: #9b5de5;
+                        border: 2px solid #9b5de5;
+                    }
+                    
+                    .btn-secondary:hover {
+                        background: #9b5de5;
+                        color: white;
+                        transform: translateY(-2px);
+                    }
+                    
+                    /* Success/Error Messages */
+                    .form-message {
+                        padding: 1rem;
+                        border-radius: 8px;
+                        margin-bottom: 1.5rem;
+                        font-weight: 500;
+                    }
+                    
+                    .form-message.success {
+                        background: #d4edda;
+                        color: #155724;
+                        border: 1px solid #c3e6cb;
+                    }
+                    
+                    .form-message.error {
+                        background: #f8d7da;
+                        color: #721c24;
+                        border: 1px solid #f5c6cb;
+                    }
+                    </style>
+                    
+                    <!-- Hybrid Booking Layout -->
+                    <div class="hybrid-booking-wrapper">
+                        <div class="booking-intro">
+                            <h2><?php esc_html_e('Schedule Your Leadership Coaching Session', 'leadership-coach'); ?></h2>
+                            <p><?php esc_html_e('Use the calendar below to pick a time that works for you. It will automatically detect your timezone.', 'leadership-coach'); ?></p>
                         </div>
-                        
-                        <!-- Calendar Display -->
-                        <div class="calendar-display-section">
-                            <h3><?php esc_html_e( 'Select Date & Time', 'leadership-coach' ); ?></h3>
-                            
-                            <!-- Calendar Widget -->
-                            <div id="appointment-calendar" class="calendar-widget">
-                                <div class="calendar-header">
-                                    <button type="button" class="calendar-nav prev-month" aria-label="<?php esc_attr_e( 'Previous month', 'leadership-coach' ); ?>">
-                                        <span class="screen-reader-text"><?php esc_html_e( 'Previous month', 'leadership-coach' ); ?></span>
-                                        &#8249;
-                                    </button>
-                                    <h4 class="calendar-title" id="calendar-title"></h4>
-                                    <button type="button" class="calendar-nav next-month" aria-label="<?php esc_attr_e( 'Next month', 'leadership-coach' ); ?>">
-                                        <span class="screen-reader-text"><?php esc_html_e( 'Next month', 'leadership-coach' ); ?></span>
-                                        &#8250;
-                                    </button>
-                                </div>
+
+                        <div class="hybrid-booking-layout">
+                            <!-- Left Column - Calendly Widget -->
+                            <div class="booking-left">
+                                <h3><?php esc_html_e('📅 Book Instantly with Calendly', 'leadership-coach'); ?></h3>
+                                <p><?php esc_html_e('See real-time availability and book your session immediately.', 'leadership-coach'); ?></p>
                                 
-                                <div class="calendar-grid">
-                                    <div class="calendar-weekdays">
-                                        <div class="weekday"><?php esc_html_e( 'Sun', 'leadership-coach' ); ?></div>
-                                        <div class="weekday"><?php esc_html_e( 'Mon', 'leadership-coach' ); ?></div>
-                                        <div class="weekday"><?php esc_html_e( 'Tue', 'leadership-coach' ); ?></div>
-                                        <div class="weekday"><?php esc_html_e( 'Wed', 'leadership-coach' ); ?></div>
-                                        <div class="weekday"><?php esc_html_e( 'Thu', 'leadership-coach' ); ?></div>
-                                        <div class="weekday"><?php esc_html_e( 'Fri', 'leadership-coach' ); ?></div>
-                                        <div class="weekday"><?php esc_html_e( 'Sat', 'leadership-coach' ); ?></div>
-                                    </div>
-                                    <div class="calendar-days" id="calendar-days">
-                                        <!-- Calendar days will be populated by JavaScript -->
-                                    </div>
-                                </div>
+                                <!-- Calendly Embed Container (initialized via JS) -->
+                                <div id="calendly-embed"></div>
                                 
-                                <div class="calendar-legend">
-                                    <div class="legend-item">
-                                        <span class="legend-color available"></span>
-                                        <span class="legend-text"><?php esc_html_e( 'Available', 'leadership-coach' ); ?></span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <span class="legend-color booked"></span>
-                                        <span class="legend-text"><?php esc_html_e( 'Fully Booked', 'leadership-coach' ); ?></span>
-                                    </div>
-                                    <div class="legend-item">
-                                        <span class="legend-color unavailable"></span>
-                                        <span class="legend-text"><?php esc_html_e( 'Unavailable', 'leadership-coach' ); ?></span>
-                                    </div>
+                                <!-- Calendly Fallback -->
+                                <div class="calendly-fallback" style="display: none;">
+                                    <h4><?php esc_html_e('Unable to load calendar', 'leadership-coach'); ?></h4>
+                                    <p><?php esc_html_e('Please use the appointment form on the right or visit our Calendly page directly.', 'leadership-coach'); ?></p>
+                                    <a href="https://calendly.com/laraibsshaikh10/30min" target="_blank" rel="noopener" class="btn-primary">
+                                        <?php esc_html_e('Open Calendly Page', 'leadership-coach'); ?>
+                                        <span>↗</span>
+                                    </a>
                                 </div>
                             </div>
-                            
-                            <!-- Time Slots Display -->
-                            <div id="time-slots-display" class="time-slots-section" style="display: none;">
-                                <h4 class="selected-date-title"><?php esc_html_e( 'Available Times for', 'leadership-coach' ); ?> <span id="selected-date-display"></span></h4>
-                                <div id="time-slots-grid" class="time-slots-grid">
-                                    <!-- Time slots will be populated by JavaScript -->
+
+                            <script type="text/javascript">
+                            (function() {
+                                var baseUrl = 'https://calendly.com/laraibsshaikh10/30min?hide_gdpr_banner=1&background_color=ffffff&text_color=2e2c38&primary_color=9b5de5';
+                                var parent = document.getElementById('calendly-embed');
+                                var fallback = document.querySelector('.calendly-fallback');
+                                function forceIframeHeight() {
+                                    var iframe = parent && parent.querySelector('iframe');
+                                    if (iframe) {
+                                        iframe.style.height = '1200px';
+                                        iframe.style.minHeight = '1000px';
+                                        iframe.removeAttribute('scrolling');
+                                    }
+                                }
+                                function initCalendly(prefill) {
+                                    if (!window.Calendly || !parent) return;
+                                    parent.innerHTML = '';
+                                    try {
+                                        window.Calendly.initInlineWidget({
+                                            url: baseUrl,
+                                            parentElement: parent,
+                                            prefill: prefill || {}
+                                        });
+                                        forceIframeHeight();
+                                        if (fallback) fallback.style.display = 'none';
+                                    } catch(e) { if (fallback) fallback.style.display = 'block'; }
+                                }
+                                function whenCalendlyReady(cb){
+                                    if (window.Calendly) { cb(); return; }
+                                    var tries = 0;
+                                    var iv = setInterval(function(){
+                                        tries++;
+                                        if (window.Calendly) { clearInterval(iv); cb(); }
+                                        if (tries > 200) { clearInterval(iv); if (fallback) fallback.style.display = 'block'; }
+                                    }, 50);
+                                }
+                                window.addEventListener('load', function(){
+                                    whenCalendlyReady(function(){ initCalendly({}); });
+                                    setTimeout(forceIframeHeight, 1500);
+                                });
+                                window.addEventListener('message', function(event){
+                                    if (!event || !event.data) return;
+                                    if (event.data.event && event.origin && event.origin.indexOf('calendly.com') !== -1) { forceIframeHeight(); }
+                                });
+                            })();
+                            </script>
+
+                        </div>
+
+                        <!-- Alternative Booking Options -->
+                        <div class="alternative-booking">
+                            <h3><?php esc_html_e('Prefer to Book Differently?', 'leadership-coach'); ?></h3>
+                            <p><?php esc_html_e('If you\'re having trouble with the calendar above, you can also:', 'leadership-coach'); ?></p>
+
+                            <div class="booking-options">
+                                <div class="booking-option">
+                                    <h4><?php esc_html_e('Direct Link', 'leadership-coach'); ?></h4>
+                                    <p><?php esc_html_e('Visit our Calendly page directly:', 'leadership-coach'); ?></p>
+                                    <a href="https://calendly.com/laraibsshaikh10/30min" target="_blank" rel="noopener" class="btn-primary calendly-link">
+                                        <?php esc_html_e('Open Calendly', 'leadership-coach'); ?>
+                                        <span class="external-icon">↗</span>
+                                    </a>
                                 </div>
-                                <div id="no-slots-message" class="no-slots-message" style="display: none;">
-                                    <p><?php esc_html_e( 'No available time slots for this date. Please select another date.', 'leadership-coach' ); ?></p>
+
+                                <div class="booking-option">
+                                    <h4><?php esc_html_e('Contact Us', 'leadership-coach'); ?></h4>
+                                    <p><?php esc_html_e('Get in touch and we\'ll help you schedule:', 'leadership-coach'); ?></p>
+                                    <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn-secondary">
+                                        <?php esc_html_e('Contact Us', 'leadership-coach'); ?>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- What to Expect (Updated with Better Icons) -->
+                        <div class="session-info">
+                            <h3><?php esc_html_e('What to Expect', 'leadership-coach'); ?></h3>
+                            <div class="session-details">
+                                <div class="session-detail">
+                                    <div class="detail-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.2 16.2L17 14.9L12.5 12.2V7Z" fill="#9b5de5"/></svg></div>
+                                    <div class="detail-content">
+                                        <h4><?php esc_html_e('30-Minute Session', 'leadership-coach'); ?></h4>
+                                        <p><?php esc_html_e('A focused conversation about your leadership goals and challenges.', 'leadership-coach'); ?></p>
+                                    </div>
+                                </div>
+
+                                <div class="session-detail">
+                                    <div class="detail-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 18H4V8L12 13L20 8V18ZM12 11L4 6H20L12 11Z" fill="#9b5de5"/></svg></div>
+                                    <div class="detail-content">
+                                        <h4><?php esc_html_e('Virtual Meeting', 'leadership-coach'); ?></h4>
+                                        <p><?php esc_html_e('Conducted via video call for your convenience.', 'leadership-coach'); ?></p>
+                                    </div>
+                                </div>
+
+                                <div class="session-detail">
+                                    <div class="detail-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z" fill="#9b5de5"/></svg></div>
+                                    <div class="detail-content">
+                                        <h4><?php esc_html_e('Personalized Approach', 'leadership-coach'); ?></h4>
+                                        <p><?php esc_html_e('Tailored discussion based on your specific needs and objectives.', 'leadership-coach'); ?></p>
+                                    </div>
+                                </div>
+
+                                <div class="session-detail">
+                                    <div class="detail-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H14.82C14.4 1.84 13.3 1 12 1C10.7 1 9.6 1.84 9.18 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 3C12.55 3 13 3.45 13 4C13 4.55 12.55 5 12 5C11.45 5 11 4.55 11 4C11 3.45 11.45 3 12 3ZM19 19H5V5H7V8H17V5H19V19ZM10 11V13H7V11H10ZM10 15V17H7V15H10ZM10 7V9H7V7H10ZM17 11V13H12V11H17ZM17 15V17H12V15H17ZM17 7V9H12V7H17Z" fill="#9b5de5"/></svg></div>
+                                    <div class="detail-content">
+                                        <h4><?php esc_html_e('Action Plan', 'leadership-coach'); ?></h4>
+                                        <p><?php esc_html_e('Leave with clear next steps and recommendations.', 'leadership-coach'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonials Preview -->
+                        <div class="calendar-testimonials">
+                            <h3><?php esc_html_e('What Clients Say', 'leadership-coach'); ?></h3>
+                            <div class="testimonial-slider">
+                                <div class="testimonial-item">
+                                    <div class="testimonial-content">
+                                        <p>"The coaching sessions have transformed my approach to leadership. I'm now more confident in my decision-making and better at empowering my team."</p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <div class="author-name">Sarah Johnson</div>
+                                        <div class="author-title">Marketing Director</div>
+                                    </div>
+                                </div>
+                                <div class="testimonial-item">
+                                    <div class="testimonial-content">
+                                        <p>"I appreciate how the sessions are structured - focused yet flexible. The action plan at the end of each meeting gives me clear direction."</p>
+                                    </div>
+                                    <div class="testimonial-author">
+                                        <div class="author-name">Michael Chen</div>
+                                        <div class="author-title">Senior Manager</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Section -->
+                        <div class="calendar-faq">
+                            <h3><?php esc_html_e('Frequently Asked Questions', 'leadership-coach'); ?></h3>
+                            <div class="faq-items">
+                                <div class="faq-item">
+                                    <h4><?php esc_html_e('How should I prepare for my first session?', 'leadership-coach'); ?></h4>
+                                    <p><?php esc_html_e('Consider your leadership goals and challenges beforehand. Come ready to share your experiences and what you hope to achieve through coaching.', 'leadership-coach'); ?></p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4><?php esc_html_e('What happens after the initial consultation?', 'leadership-coach'); ?></h4>
+                                    <p><?php esc_html_e("We'll discuss your needs and goals, then recommend a coaching program tailored to your specific situation. There's no obligation to continue beyond this first session.", 'leadership-coach'); ?></p>
+                                </div>
+                                <div class="faq-item">
+                                    <h4><?php esc_html_e('How do I reschedule if needed?', 'leadership-coach'); ?></h4>
+                                    <p><?php esc_html_e("You can easily reschedule through the confirmation email you'll receive after booking. We ask for at least 24 hours notice for any changes.", 'leadership-coach'); ?></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
+
                 </div>
 
             </article>
-            
+
         <?php endwhile; ?>
-        
+
     </main>
 </div>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

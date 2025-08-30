@@ -483,4 +483,47 @@
     to {
         transform: rotate(360deg);
     }
+}/* B
+ooking Messages */
+.booking-message {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.booking-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 2px solid #22c55e;
+    color: #15803d;
+}
+
+.booking-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid #ef4444;
+    color: #dc2626;
+}
+
+.booking-message p {
+    margin: 0;
+}
+
+/* Contact Form Messages */
+.contact-message {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.contact-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 2px solid #22c55e;
+    color: #15803d;
+}
+
+.contact-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 2px solid #ef4444;
+    color: #dc2626;
 }

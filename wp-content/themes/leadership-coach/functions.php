@@ -52,18 +52,9 @@ add_action('wp_enqueue_scripts', 'leadership_coach_styles', 10);
 function leadership_coach_contact_scripts()
 {
     // Only load on contact page
-    if (is_page_template('page-contact.php') || is_page('contact')) {
-        $my_theme = wp_get_theme();
-        $version  = $my_theme['Version'];
-
-        wp_enqueue_script(
-            'leadership-coach-contact-form',
-            get_stylesheet_directory_uri() . '/inc/js/contact-form.js',
-            array(),
-            $version,
-            true
-        );
-    }
+    // We no longer enqueue the AJAX contact form script; the page uses a mailto compose flow.
+    // Keeping this function for future extensibility.
+    return;
 }
 add_action('wp_enqueue_scripts', 'leadership_coach_contact_scripts', 15);
 
@@ -795,8 +786,8 @@ function leadership_coach_get_appointment_model()
  */
 function leadership_coach_enqueue_booking_scripts()
 {
-    // Only load on calendar page or pages with booking form
-    if (is_page_template('page-calendar.php') || is_page('calendar') || is_page('booking')) {
+    // Only load on simple calendar or booking pages (avoid Calendly page to prevent conflicts)
+    if (is_page_template('page-calendar-simple.php') || is_page('booking')) {
         $my_theme = wp_get_theme();
         $version  = $my_theme['Version'];
 
@@ -1463,6 +1454,127 @@ function leadership_coach_handle_contact_form()
 }
 add_action('admin_post_leadership_coach_contact_form', 'leadership_coach_handle_contact_form');
 add_action('admin_post_nopriv_leadership_coach_contact_form', 'leadership_coach_handle_contact_form');
+
+/**
+ * Handle appointment request form submission
+ */
+function leadership_coach_handle_appointment_request()
+{
+    // Check if form was submitted
+    if (! isset($_POST['appointment_request_nonce']) || ! wp_verify_nonce($_POST['appointment_request_nonce'], 'book_appointment_request')) {
+        wp_redirect(add_query_arg('appointment', 'error', wp_get_referer()));
+        exit;
+    }
+
+    // Sanitize and validate form data
+    $client_name = sanitize_text_field($_POST['client_name']);
+    $client_email = sanitize_email($_POST['client_email']);
+    $client_phone = sanitize_text_field($_POST['client_phone']);
+    $preferred_time = sanitize_text_field($_POST['preferred_time']);
+    $session_type = sanitize_text_field($_POST['session_type']);
+    $appointment_notes = sanitize_textarea_field($_POST['appointment_notes']);
+
+    // Validate required fields
+    if (empty($client_name) || empty($client_email) || empty($session_type)) {
+        wp_redirect(add_query_arg('appointment', 'error', wp_get_referer()));
+        exit;
+    }
+
+    // Validate email
+    if (! is_email($client_email)) {
+        wp_redirect(add_query_arg('appointment', 'error', wp_get_referer()));
+        exit;
+    }
+
+    // Prepare email content
+    $admin_email = get_option('admin_email');
+    $site_name = get_bloginfo('name');
+
+    $email_subject = sprintf(__('New Appointment Request from %s', 'leadership-coach'), $site_name);
+
+    // Format preferred time
+    $preferred_time_text = '';
+    switch ($preferred_time) {
+        case 'morning':
+            $preferred_time_text = __('Morning (9 AM - 12 PM)', 'leadership-coach');
+            break;
+        case 'afternoon':
+            $preferred_time_text = __('Afternoon (12 PM - 5 PM)', 'leadership-coach');
+            break;
+        case 'evening':
+            $preferred_time_text = __('Evening (5 PM - 8 PM)', 'leadership-coach');
+            break;
+        default:
+            $preferred_time_text = __('No preference specified', 'leadership-coach');
+    }
+
+    // Format session type
+    $session_type_text = '';
+    switch ($session_type) {
+        case 'consultation':
+            $session_type_text = __('30-Minute Free Consultation', 'leadership-coach');
+            break;
+        case 'coaching_session':
+            $session_type_text = __('Leadership Coaching Session', 'leadership-coach');
+            break;
+        case 'strategy_session':
+            $session_type_text = __('Strategy Planning Session', 'leadership-coach');
+            break;
+        case 'team_coaching':
+            $session_type_text = __('Team Coaching Session', 'leadership-coach');
+            break;
+        default:
+            $session_type_text = $session_type;
+    }
+
+    $email_message = sprintf(
+        __("You have received a new appointment request:\n\nClient Details:\n- Name: %s\n- Email: %s\n- Phone: %s\n\nAppointment Preferences:\n- Session Type: %s\n- Preferred Time: %s\n\nMessage:\n%s\n\n---\nThis appointment request was sent from the calendar page on %s", 'leadership-coach'),
+        $client_name,
+        $client_email,
+        $client_phone ?: __('Not provided', 'leadership-coach'),
+        $session_type_text,
+        $preferred_time_text,
+        $appointment_notes ?: __('No additional notes', 'leadership-coach'),
+        home_url()
+    );
+
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'From: ' . $site_name . ' <' . $admin_email . '>',
+        'Reply-To: ' . $client_name . ' <' . $client_email . '>'
+    );
+
+    // Send email to admin
+    $admin_sent = wp_mail($admin_email, $email_subject, $email_message, $headers);
+
+    // Send auto-responder to client
+    $client_subject = sprintf(__('Appointment Request Received - %s', 'leadership-coach'), $site_name);
+    $client_message = sprintf(
+        __("Dear %s,\n\nThank you for your appointment request! We have received your information and will contact you within 24 hours to schedule your %s.\n\nYour Request Details:\n- Session Type: %s\n- Preferred Time: %s\n\nWe look forward to working with you on your leadership journey.\n\nBest regards,\n%s Team\n\n---\nThis is an automated response. Please do not reply to this email.", 'leadership-coach'),
+        $client_name,
+        $session_type_text,
+        $session_type_text,
+        $preferred_time_text,
+        $site_name
+    );
+
+    $client_headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'From: ' . $site_name . ' <' . $admin_email . '>'
+    );
+
+    $client_sent = wp_mail($client_email, $client_subject, $client_message, $client_headers);
+
+    // Redirect based on email sending success
+    if ($admin_sent) {
+        wp_redirect(add_query_arg('appointment', 'success', wp_get_referer()));
+    } else {
+        wp_redirect(add_query_arg('appointment', 'error', wp_get_referer()));
+    }
+    exit;
+}
+add_action('admin_post_book_appointment_request', 'leadership_coach_handle_appointment_request');
+add_action('admin_post_nopriv_book_appointment_request', 'leadership_coach_handle_appointment_request');
 
 /**
  * Add contact information settings to Customizer
@@ -2226,3 +2338,84 @@ function leadership_coach_custom_nav_script() {
     );
 }
 add_action('wp_enqueue_scripts', 'leadership_coach_custom_nav_script');
+
+/**
+ * Force correct template for calendar page
+ */
+function leadership_coach_force_calendar_template($template) {
+    if (is_page('calendar') || is_page(25)) { // Force calendar page to use the right template
+        $new_template = get_stylesheet_directory() . '/page-calendar.php';
+        if (file_exists($new_template)) {
+            return $new_template;
+        }
+    }
+    return $template;
+}
+add_filter('template_include', 'leadership_coach_force_calendar_template');
+
+/**
+ * Enqueue additional styles
+ */
+function leadership_coach_enqueue_additional_styles() {
+    // Enqueue blog styles
+    wp_enqueue_style(
+        'blog-styles',
+        get_stylesheet_directory_uri() . '/assets/css/blog-styles.css',
+        array('leadership-coach'),
+        '1.0.0'
+    );
+    
+    // Enqueue Calendly styles and scripts on calendar page
+    if (is_page_template('page-calendar.php') || is_page('calendar')) {
+        // Official Calendly widget CSS and JS (required for proper rendering)
+        wp_enqueue_style(
+            'calendly-widget-external',
+            'https://assets.calendly.com/assets/external/widget.css',
+            array(),
+            null
+        );
+        wp_enqueue_script(
+            'calendly-widget-external',
+            'https://assets.calendly.com/assets/external/widget.js',
+            array(),
+            null,
+            true
+        );
+
+        // Custom page styles
+        wp_enqueue_style(
+            'calendly-styles',
+            get_stylesheet_directory_uri() . '/assets/css/calendly-styles.css',
+            array('leadership-coach'),
+            '1.0.1'
+        );
+        
+        // Temporarily disabled for troubleshooting
+        /*
+        wp_enqueue_script(
+            'calendly-integration',
+            get_stylesheet_directory_uri() . '/inc/js/calendly-integration.js',
+            array('jquery'),
+            '1.0.1',
+            true
+        );
+        */
+    }
+    
+    // Enqueue simple calendar styles
+    if (is_page_template('page-calendar-simple.php')) {
+        wp_enqueue_style(
+            'simple-calendar',
+            get_stylesheet_directory_uri() . '/assets/css/simple-calendar.css',
+            array('leadership-coach'),
+            '1.0.0'
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'leadership_coach_enqueue_additional_styles');
+
+/**
+ * Disable breadcrumbs shown by the parent theme across inner pages
+ * This prevents the Home > About trail from appearing.
+ */
+add_filter('theme_mod_ed_breadcrumb', '__return_false');

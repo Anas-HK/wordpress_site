@@ -17,9 +17,6 @@ get_header(); ?>
             
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 
-                <header class="entry-header">
-                    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-                </header><!-- .entry-header -->
 
                 <?php if ( has_post_thumbnail() ) : ?>
                     <div class="featured-image">
@@ -109,24 +106,11 @@ get_header(); ?>
                         <div class="contact-form-section">
                             <h2><?php esc_html_e( 'Send a Message', 'leadership-coach' ); ?></h2>
                             
-                            <?php
-                            // Display success/error messages
-                            if ( isset( $_GET['contact'] ) ) {
-                                if ( $_GET['contact'] === 'success' ) {
-                                    echo '<div class="contact-message success">';
-                                    echo '<p>' . esc_html__( 'Thank you for your message! We will get back to you soon.', 'leadership-coach' ) . '</p>';
-                                    echo '</div>';
-                                } elseif ( $_GET['contact'] === 'error' ) {
-                                    echo '<div class="contact-message error">';
-                                    echo '<p>' . esc_html__( 'Sorry, there was an error sending your message. Please try again.', 'leadership-coach' ) . '</p>';
-                                    echo '</div>';
-                                }
-                            }
-                            ?>
+                            <?php /* Removed old success/error banner logic; mailto flow does not use server posting. */ ?>
+                            <?php $to_email = sanitize_email( get_theme_mod('email', get_option('admin_email')) ); ?>
                             
-                            <form id="contact-form" class="contact-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-                                <?php wp_nonce_field( 'leadership_coach_contact_form', 'contact_nonce' ); ?>
-                                <input type="hidden" name="action" value="leadership_coach_contact_form">
+                            <form id="contact-form" class="contact-form" method="get" action="#" data-mailto="<?php echo esc_attr( $to_email ); ?>">
+                                <!-- No nonce or server action needed for mailto compose -->
                                 
                                 <div class="form-row">
                                     <div class="form-group">
@@ -170,10 +154,41 @@ get_header(); ?>
                                 
                                 <div class="form-group">
                                     <button type="submit" class="btn-primary contact-submit">
-                                        <?php esc_html_e( 'Send Message', 'leadership-coach' ); ?>
+                                        <?php esc_html_e( 'Open Email Composer', 'leadership-coach' ); ?>
                                     </button>
                                 </div>
                             </form>
+
+                            <script type="text/javascript">
+                            (function(){
+                                var form = document.getElementById('contact-form');
+                                if (!form) return;
+                                form.addEventListener('submit', function(e){
+                                    e.preventDefault();
+                                    var to = form.getAttribute('data-mailto') || '';
+                                    if (!to) { to = '<?php echo esc_js( get_option('admin_email') ); ?>'; }
+                                    var name = (document.getElementById('contact_name') || {}).value || '';
+                                    var email = (document.getElementById('contact_email') || {}).value || '';
+                                    var phone = (document.getElementById('contact_phone') || {}).value || '';
+                                    var subjectSel = document.getElementById('contact_subject');
+                                    var subject = subjectSel && subjectSel.value ? subjectSel.options[subjectSel.selectedIndex].text : 'Website Contact';
+                                    var message = (document.getElementById('contact_message') || {}).value || '';
+
+                                    var fullSubject = encodeURIComponent(subject + ' - ' + name);
+                                    var bodyLines = [];
+                                    if (name) bodyLines.push('Name: ' + name);
+                                    if (email) bodyLines.push('Email: ' + email);
+                                    if (phone) bodyLines.push('Phone: ' + phone);
+                                    bodyLines.push('');
+                                    bodyLines.push('Message:');
+                                    bodyLines.push(message);
+                                    var body = encodeURIComponent(bodyLines.join('\n'));
+
+                                    var mailto = 'mailto:' + to + '?subject=' + fullSubject + '&body=' + body;
+                                    window.location.href = mailto;
+                                });
+                            })();
+                            </script>
                         </div>
                         
                     </div><!-- .contact-content-wrapper -->
