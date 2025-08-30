@@ -1,0 +1,476 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Wheel of Life 1.1.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wheeloflife\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-05-31T10:11:09+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: \n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: wheel-of-life\n"
+
+#. Plugin Name of the plugin
+#: wheel-of-life.php
+#: includes/Wheel_Of_Life_Admin.php:225
+#: app/src/admin/common/appSidebar.js:124
+#: app/src/admin/pages/wheelLists.js:160
+#: app/src/admin/wheelEdit.js:20
+msgid "Wheel of Life"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wheel-of-life.php
+msgid "https://wheeloflife.pro/"
+msgstr ""
+
+#. Description of the plugin
+#: wheel-of-life.php
+msgid "The Wheel of Life assessment tool helps clients quickly visualize every vital aspect of their lives and helps them understand which area of their life can be improved to bring in the perfect balance they need."
+msgstr ""
+
+#. Author of the plugin
+#: wheel-of-life.php
+msgid "Kraft Plugins"
+msgstr ""
+
+#. Author URI of the plugin
+#: wheel-of-life.php
+msgid "https://kraftplugins.com"
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:459
+msgid "Saved successfully . "
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:219
+#: includes/functions/AjaxFunctions.php:258
+#: includes/functions/AjaxFunctions.php:301
+#: includes/functions/AjaxFunctions.php:345
+#: includes/functions/AjaxFunctions.php:384
+#: includes/functions/AjaxFunctions.php:430
+msgid "Something went wrong ! Please try again"
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:298
+msgid "Wheel trashed successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:298
+msgid "Submission trashed successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:342
+msgid "Wheel restored successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:342
+msgid "Submission restored successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:380
+msgid "Wheel deleted successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:380
+msgid "Submission deleted successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:423
+msgid "Copy of "
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:432
+msgid "Wheel copied successfully . "
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:491
+msgid "Please provide a valid email address."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:495
+msgid "Your Assessment report has been created!"
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:499
+msgid "Dear {email},"
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:500
+msgid "Thank you for taking the Assessment. You can view your assessment information via the link below."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:501
+msgid "My Wheel Report"
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:502
+msgid "Thank you."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:511
+msgid "Email sent failed. Please try again later."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:513
+#: includes/functions/AjaxFunctions.php:520
+msgid "Email sent successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:548
+#: includes/functions/AjaxFunctions.php:575
+msgid "Something went wrong! Please try again"
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:583
+msgid "Report Saved Successfully."
+msgstr ""
+
+#: includes/functions/HelperFunctions.php:52
+msgid "Is your life out of balance? Need a coach?"
+msgstr ""
+
+#: includes/functions/HelperFunctions.php:53
+msgid "I am a Certified Coach with experience of over 5 years. I can help you transform your life and get it run smoothly."
+msgstr ""
+
+#: includes/functions/HelperFunctions.php:54
+msgid "Schedule an Appointment"
+msgstr ""
+
+#: includes/functions/HelperFunctions.php:60
+#: app/src/admin/pages/CallToAction.js:22
+msgid "Services"
+msgstr ""
+
+#: includes/Wheel_Of_Life_Admin.php:211
+msgid "Wheels of Life"
+msgstr ""
+
+#: includes/Wheel_Of_Life_Admin.php:235
+msgid "Wheel of Life - Global Settings"
+msgstr ""
+
+#: includes/Wheel_Of_Life_Admin.php:243
+msgid "Wheel of Life - Submissions"
+msgstr ""
+
+#: includes/Wheel_Of_Life_Admin.php:273
+#: includes/Wheel_Of_Life_Admin.php:274
+#: app/src/admin/blocks/editor.js:25
+#: app/src/admin/blocks/editor.js:27
+msgid "Start Assessment"
+msgstr ""
+
+#: includes/Wheel_Of_Life_Admin.php:292
+msgid "Enter Wheel Description..."
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:62
+msgctxt "post type general name"
+msgid "Wheels"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:63
+msgctxt "post type singular name"
+msgid "Wheel"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:64
+msgctxt "admin menu"
+msgid "Wheels"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:65
+msgctxt "add new on admin bar"
+msgid "Wheel"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:66
+msgctxt "wheel"
+msgid "Add New"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:67
+msgid "Add New wheel"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:68
+msgid "New wheel"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:69
+msgid "Edit wheel"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:70
+msgid "View wheel"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:71
+msgid "All wheels"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:72
+msgid "Search wheels"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:73
+msgid "Parent wheels:"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:74
+msgid "No wheels found."
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:75
+msgid "No wheel found in Trash."
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:80
+msgid "Description."
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:192
+msgctxt "post type general name"
+msgid "Submissions"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:193
+msgctxt "post type singular name"
+msgid "Submission"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:194
+msgctxt "admin menu"
+msgid "Submissions"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:195
+msgctxt "add new on admin bar"
+msgid "Submission"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:196
+msgctxt "Submission"
+msgid "Add New"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:197
+msgid "Add New Submission"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:198
+msgid "New Submission"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:199
+msgid "Edit Submission"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:200
+msgid "View Submission"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:201
+#: app/src/admin/pages/submissionLists.js:127
+#: app/src/admin/pages/submissionLists.js:143
+#: app/src/admin/pages/submissionLists.js:165
+msgid "All Submissions"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:202
+msgid "Search Submissions"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:203
+msgid "Parent Submissions:"
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:204
+msgid "No Submissions found."
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:205
+msgid "No Submission found in Trash."
+msgstr ""
+
+#: includes/Wheel_Of_Life_PostTypes.php:210
+msgid "This is where wheel submissions are stored."
+msgstr ""
+
+#: templates/single-wheel-submissions.php:16
+msgid "My Wheel of Life"
+msgstr ""
+
+#. translators: %d: submission number
+#: templates/single-wheel-submissions.php:21
+#: app/src/public/assessment/WheelForm.js:303
+msgid "Wheel Submission No: #%d"
+msgstr ""
+
+#: templates/single-wheel-submissions.php:28
+#: templates/single-wheel-submissions.php:91
+#: templates/single-wheel-submissions.php:222
+msgid "Assessment taken on: "
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:121
+#: includes/functions/AjaxFunctions.php:443
+msgid "You do not have permission to save this setting."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:137
+msgid "Invalid URL provided."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:144
+msgid "Saved successfully."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:175
+msgid "You do not have permission to add a new wheel."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:193
+msgid "You do not have permission to edit wheel."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:203
+#: includes/functions/AjaxFunctions.php:242
+#: includes/functions/AjaxFunctions.php:280
+#: includes/functions/AjaxFunctions.php:324
+#: includes/functions/AjaxFunctions.php:368
+#: includes/functions/AjaxFunctions.php:407
+msgid "Invalid post ID."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:213
+msgid "You can only edit posts of type \"wheel\" or \"submission\"."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:232
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:252
+msgid "You can only view posts of type \"submission\"."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:271
+#: includes/functions/AjaxFunctions.php:358
+msgid "You do not have permission to delete this post."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:292
+#: includes/functions/AjaxFunctions.php:375
+msgid "You can only delete posts of type \"wheel\" or \"submission\"."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:314
+msgid "You do not have permission to restore this post."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:336
+msgid "You can only restore posts of type \"wheel\" or \"submission\"."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:397
+msgid "You do not have permission to copy this post."
+msgstr ""
+
+#: includes/functions/AjaxFunctions.php:415
+msgid "You can duplicate posts of type \"wheel\"."
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:131
+msgid "Select logo"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:181
+msgid "Remove Image"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:214
+msgid "Color"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:221
+msgid "Overlay Color"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:229
+msgid "Image"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:251
+msgid "X Position"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:256
+msgid "Y Position"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:261
+#: app/src/@components/controls/Background.jsx:268
+msgid "Repeat"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:266
+#: app/src/@components/controls/Background.jsx:280
+#: app/src/admin/blocks/ui-components/helpers/InputWithOnlyNumbers.js:11
+#: app/src/admin/components/helpers/InputWithOnlyNumbers.js:11
+msgid "Default"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:267
+msgid "No-repeat"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:269
+msgid "Repeat-x"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:270
+msgid "Repeat-y"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:276
+msgid "Attachment"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:281
+msgid "Scroll"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:282
+#: app/src/admin/blocks/assesmentButton/Inspector.js:109
+msgid "Fixed"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:286
+msgid "Size"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:290
+msgid "Auto"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:291
+msgid "Cover"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:292
+msgid "Contain"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:324
+msgid "Choose Color / Image"
+msgstr ""
+
+#: app/src/@components/controls/Background.jsx:329
+msgid "Pick Gradient Color"
+msgstr ""

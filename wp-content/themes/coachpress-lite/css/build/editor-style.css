@@ -1,0 +1,349 @@
+/* Editor Style CSS */
+/*@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');*/
+
+:root .mce-content-body {
+	--primary-color: #E8C1C8;
+	--primary-color-rgb: 232, 193, 200;
+	--secondary-color: #7D6A91;
+	--secondary-color-rgb: 125, 106, 145;
+	--black-color: #171717;
+	--black-color-rgb: 23, 23, 23;
+	--white-color: #ffffff;
+	--white-color-rgb: 255, 255, 255;
+	--primary-font: 'Didact Gothic', sans-serif;
+	--secondary-font: 'Noto Serif', serif;
+}
+
+body.mce-content-body {
+	color: var(--black-color);
+	font-family: var(--primary-font);
+	font-size: 18px;
+	line-height: 1.86;
+	font-weight: 400;
+}
+
+hr {
+	background-color: #ccc;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+
+.mce-content-body a {
+	color: var(--primary-color);
+	text-decoration: underline;
+	-webkit-transition: all ease 0.35s;
+	-moz-transition: all ease 0.35s;
+	transition: all ease 0.35s;
+}
+
+.mce-content-body a:hover {
+	color: var(--primary-color);
+	text-decoration: none;
+}
+
+.mce-content-body a:hover, a:active {
+	outline: 0;
+}
+
+.mce-content-body .blockquote-highlight {
+    background: var(--secondary-color);
+    display: inline-block;
+    padding: 45px;
+    color: var(--white-color);
+    font-family: var(--secondary-font);
+    font-size: 1.11em;
+    line-height: 2.1;
+}
+
+.mce-content-body .highlight {
+    background: rgba(var(--primary-color-rgb), 0.3);
+    display: inline;
+    font-family: var(--primary-font);
+    font-size: 1.06em;
+    letter-spacing: 0.1px;
+    line-height: 1.84;
+    padding: 0 7px;
+}
+
+.mce-content-body h1, 
+.mce-content-body h2, 
+.mce-content-body h3, 
+.mce-content-body h4, 
+.mce-content-body h5, 
+.mce-content-body h6 {
+	clear: both;
+	font-family: var(--secondary-font);
+	font-weight: 400;
+	margin: 0.5em 0;
+}
+
+.mce-content-body h1 {
+	font-size: 3em;
+    line-height: 1.48;
+}
+
+.mce-content-body h2 {
+	font-size: 2.22em;
+    line-height: 1.38;
+}
+
+.mce-content-body h3 {
+	font-size: 2em;
+    line-height: 1.35;
+}
+
+.mce-content-body h4 {
+	font-size: 1.67em;
+	line-height: 1.5;
+}
+
+.mce-content-body h5 {
+	font-size: 1.33em;
+    line-height: 1.65;
+}
+
+.mce-content-body h6 {
+	font-size: 1.11em;
+    line-height: 1.65;
+}
+
+.mce-content-body p {
+	margin-bottom: 1.5em;
+}
+
+.mce-content-body dfn, 
+.mce-content-body cite, 
+.mce-content-body em, 
+.mce-content-body i {
+	font-style: italic;
+}
+
+.mce-content-body blockquote {
+    font-family: var(--secondary-font);
+    color: var(--black-color);
+    margin: 2em 0;
+    border: 10px solid rgba(var(--primary-color-rgb), 0.15);
+    padding: 50px;
+    position: relative;
+}
+
+.mce-content-body blockquote::before {
+	content: "";
+	background-color: var(--white-color);
+    background-image: url('data:image/svg+xml; utf-8, <svg xmlns="http://www.w3.org/2000/svg" width="16.139" height="12.576" viewBox="0 0 16.139 12.576"><path d="M154.714,262.991c-.462.312-.9.614-1.343.9-.3.2-.612.375-.918.56a2.754,2.754,0,0,1-2.851.133,1.764,1.764,0,0,1-.771-.99,6.549,6.549,0,0,1-.335-1.111,5.386,5.386,0,0,1-.219-1.92,16.807,16.807,0,0,1,.3-1.732,2.392,2.392,0,0,1,.424-.8c.394-.534.808-1.053,1.236-1.56a3.022,3.022,0,0,1,.675-.61,2.962,2.962,0,0,0,.725-.749c.453-.576.923-1.137,1.38-1.71a3.035,3.035,0,0,0,.208-.35c.023-.038.044-.09.079-.107.391-.185.777-.383,1.179-.54.284-.11.5.141.739.234a.316.316,0,0,1-.021.2c-.216.411-.442.818-.663,1.226-.5.918-1.036,1.817-1.481,2.761a7.751,7.751,0,0,0-.915,3.069c-.009.326.038.653.053.98.009.2.143.217.288.2a1.678,1.678,0,0,0,1.006-.491c.2-.2.316-.207.537-.027.283.23.552.479.825.723a.174.174,0,0,1,.06.116,1.424,1.424,0,0,1-.327,1C154.281,262.714,154.285,262.755,154.714,262.991Z" transform="translate(-139.097 -252.358)" fill="%23EBC1C8"/><path d="M222.24,262.76a5.243,5.243,0,0,1-2.138,1.427,1.623,1.623,0,0,0-.455.26,3.112,3.112,0,0,1-2.406.338,1.294,1.294,0,0,1-1.021-1.2,6.527,6.527,0,0,1,.449-2.954c.015-.043.04-.083.053-.127a13.25,13.25,0,0,1,1.295-2.632,14.155,14.155,0,0,1,1.224-1.677c.084.14.132.238.2.324.133.176.3.121.414-.06a1.248,1.248,0,0,0,.1-.23c.055-.149.143-.214.315-.111-.029-.308,0-.607.3-.727.114-.045.295.079.463.131.093-.161.227-.372.335-.6.029-.06-.012-.16-.033-.238-.042-.154-.1-.3-.137-.458a1.117,1.117,0,0,1,.27-.933c.154-.207.286-.431.431-.646a.586.586,0,0,1,1.008-.108,2.225,2.225,0,0,0,.336.306.835.835,0,0,0,.356.087,1.242,1.242,0,0,0,.294-.052c-.067.145-.114.257-.17.364-.7,1.34-1.422,2.665-2.082,4.023-.488,1.005-.891,2.052-1.332,3.08a.628.628,0,0,0-.032.11c-.091.415.055.542.478.461.365-.07.607-.378.949-.463a2.8,2.8,0,0,1,.823-.064c.174.01.366.451.317.687a2.48,2.48,0,0,1-.607,1.26C222.081,262.492,222.011,262.615,222.24,262.76Z" transform="translate(-216.183 -252.301)" fill="%23EBC1C8"/></svg>');
+    background-repeat: no-repeat;
+	background-position: center;
+	background-size: 16px;
+    width: 45px;
+	height: 45px;
+	border-radius: 17px;
+    position: absolute;
+    top: -20px;
+    left: -20px;
+}
+
+.mce-content-body blockquote p {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.11em;
+}
+
+.mce-content-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.mce-content-body blockquote cite {
+	display: block;
+	font-size: 0.8em;
+	font-style: italic;
+	color: rgba(var(--black-color-rgb), 0.8);
+	letter-spacing: 0.5px;
+	margin-top: 10px;
+	font-weight: 400;
+}
+
+.mce-content-body q {
+    background: var(--secondary-color);
+    display: block;
+    margin: 1.5em 0;
+    padding: 45px;
+    color: var(--white-color);
+    font-family: var(--secondary-font);
+	font-size: 1.11em;
+	position: relative;
+}
+
+.mce-content-body q::before {
+	position: absolute;
+	top: 40px;
+	left: 40px;
+	font-family: "Noto Serif";
+	font-size: 4em;
+	line-height: 0.8;
+	color: rgba(var(--white-color-rgb), 0.3);
+}
+
+.mce-content-body q::after {
+	display: none;
+}
+
+.mce-content-body q p {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.mce-content-body q p:last-child {
+    margin-bottom: 0;
+}
+
+.mce-content-body address {
+	margin: 0 0 1.5em;
+}
+
+.mce-content-body pre {
+	background: #eee;
+	font-family: "Courier 10 Pitch", Courier, monospace;
+	font-size: 15px;
+	font-size: 0.9375rem;
+	line-height: 1.6;
+	margin-bottom: 1.6em;
+	max-width: 100%;
+	overflow: auto;
+	padding: 1.6em;
+}
+
+.mce-content-body code, 
+.mce-content-body kbd, 
+.mce-content-body tt, 
+.mce-content-body var {
+	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	font-size: 15px;
+	font-size: 0.9375rem;
+}
+
+.mce-content-body abbr, 
+.mce-content-body acronym {
+	border-bottom: 1px dotted #666;
+	cursor: help;
+}
+
+.mce-content-body mark, 
+.mce-content-body ins {
+	background: var(--white-color)9c0;
+	text-decoration: none;
+}
+
+.mce-content-body big {
+	font-size: 125%;
+}
+
+.mce-content-body ul:not([class*="elementor-"]) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mce-content-body ul:not([class*="elementor-"]) ul, 
+.mce-content-body ul:not([class*="elementor-"]) ol, 
+.mce-content-body ol:not([class*="elementor-"]) ol, 
+.mce-content-body ol:not([class*="elementor-"]) ul {
+    margin-top: 15px;
+}
+
+.mce-content-body ul:not([class*="elementor-"]) > li {
+    position: relative;
+    margin-bottom: 15px;
+    padding-left: 22px;
+}
+
+.mce-content-body ul:not([class*="elementor-"]) > li::before {
+    content: "";
+    background: var(--primary-color);
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 14px;
+    left: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.mce-content-body ol:not([class*="elementor-"]) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: olCount;
+}
+
+.mce-content-body ol:not([class*="elementor-"]) > li {
+    margin-bottom: 15px;
+    position: relative;
+    counter-increment: olCount;
+    padding-left: 25px;
+    font-size: 1em;
+}
+
+.mce-content-body ol:not([class*="elementor-"]) > li::before {
+    content: counter(olCount)".";
+    position: absolute;
+    top: 5px;
+    left: 0;
+    font-family: var(--secondary-font);
+    letter-spacing: 0.1px;
+    font-size: 0.7778em;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.mce-content-body table {
+	margin: 0 0 1.5em;
+	width: 100%;
+	border-radius: 0;
+	font-size: 1em;
+	text-align: left;
+	border-collapse: collapse;
+}
+
+.mce-content-body table tr th {
+	font-weight: 400;
+    padding: 10px 0;
+    letter-spacing: 0.1px;
+    font-size: 0.8888em;
+    /* text-transform: uppercase; */
+    border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.34);
+}
+
+.mce-content-body table tr td {
+	padding: 10px 0;
+    border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.2);
+}
+
+.mce-content-body .wp-caption {
+	margin-bottom: 1.5em;
+	max-width: 100%;
+}
+
+.mce-content-body .wp-caption:not(.aligncenter) {
+	margin-top: 0;
+	/* margin-bottom: 0; */
+}
+
+.mce-content-body .wp-caption img[class*="wp-image-"] {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.mce-content-body .wp-caption .wp-caption-dd {
+	margin: 15px 0 0 0;
+    font-size: 0.8888em;
+    color: rgba(var(--black-color-rgb), 0.45);
+    letter-spacing: 0.1px;
+    line-height: 1.35;
+}
+
+.mce-content-body .wp-caption-dd {
+	text-align: center;
+}

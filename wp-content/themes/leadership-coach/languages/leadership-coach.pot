@@ -1,0 +1,224 @@
+# <!=Copyright (C) 2024 Blossom Themes
+# This file is distributed under the GNU General Public License v3 or later.=!>
+msgid ""
+msgstr ""
+"Project-Id-Version: Leadership Coach 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/leadership-coach\n"
+"POT-Creation-Date: 2024-07-31 07:37:12+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: functions.php:53
+msgid "Information Links"
+msgstr ""
+
+#: functions.php:67
+msgid "Demo Link: %1$sClick here.%2$s"
+msgstr ""
+
+#: functions.php:69
+msgid "Documentation Link: %1$sClick here.%2$s"
+msgstr ""
+
+#: functions.php:85 functions.php:106
+msgid "Header Layout"
+msgstr ""
+
+#: functions.php:107
+msgid "Choose the layout of the header for your site."
+msgstr ""
+
+#: functions.php:120 functions.php:140
+msgid "CTA Static Banner Layout"
+msgstr ""
+
+#: functions.php:141
+msgid "Choose the layout of the cta static banner for your site."
+msgstr ""
+
+#: functions.php:153
+msgid "Appearance Settings"
+msgstr ""
+
+#: functions.php:156
+msgid "Change color and body background."
+msgstr ""
+
+#: functions.php:164
+msgid "Typography"
+msgstr ""
+
+#: functions.php:187
+msgid "Primary Font"
+msgstr ""
+
+#: functions.php:188
+msgid "Primary font of the site."
+msgstr ""
+
+#: functions.php:209
+msgid "Secondary Font"
+msgstr ""
+
+#: functions.php:210
+msgid "Secondary font of the site."
+msgstr ""
+
+#: functions.php:232
+msgid "Tertiary Font"
+msgstr ""
+
+#: functions.php:254
+msgid "Font Size"
+msgstr ""
+
+#: functions.php:255
+msgid "Change the font size of your site."
+msgstr ""
+
+#: functions.php:279
+msgid "Load Google Fonts Locally"
+msgstr ""
+
+#: functions.php:280
+msgid ""
+"Enable to load google fonts from your own server instead from google's CDN. "
+"This solves privacy concerns with Google's CDN and their sometimes "
+"less-than-transparent policies."
+msgstr ""
+
+#: functions.php:299
+msgid "Preload Local Fonts"
+msgstr ""
+
+#: functions.php:300
+msgid "Preloading Google fonts will speed up your website speed."
+msgstr ""
+
+#: functions.php:308
+msgid "Click the button to reset the local fonts cache"
+msgstr ""
+
+#: functions.php:310
+msgid "Flush Local Font Files"
+msgstr ""
+
+#: functions.php:324
+msgid "Flush Local Fonts Cache"
+msgstr ""
+
+#: functions.php:349 functions.php:367
+msgid "Header Contact Button"
+msgstr ""
+
+#: functions.php:350
+msgid "This button shows only on header layout 2."
+msgstr ""
+
+#: functions.php:478
+msgid " Leadership Coach | Developed By "
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Blossom Themes"
+msgstr ""
+
+#: functions.php:480
+msgid " Powered by %s. "
+msgstr ""
+
+#: functions.php:480
+msgid "https://wordpress.org/"
+msgstr ""
+
+#: sections/banner.php:15
+msgid "Read More"
+msgstr ""
+
+#: sections/banner.php:16
+msgid "Get Started"
+msgstr ""
+
+#: sections/banner.php:18
+msgid "Know More"
+msgstr ""
+
+#: sections/banner.php:22
+msgid "Be The Spark That Lights Up The Room"
+msgstr ""
+
+#: sections/banner.php:23
+msgid ""
+"To empower women to make a positive impact on the world with fiery passion, "
+"unbridled self-belief, and head-turning style."
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Leadership Coach"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://blossomthemes.com/wordpress-themes/leadership-coach/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Leadership Coach is a feminine lead-generating WordPress theme for coaches, "
+"mentors, therapists, speakers, leaders, counselors, medical practitioners "
+"and entrepreneurs. This theme helps you create a coaching website to launch "
+"your services and introduce yourself. The theme includes sections like "
+"Banner with Call-to-Action and Newsletter, About, Services, Testimonials, "
+"Call-to-Actions, Newsletter and Instagram to elegantly display your "
+"services and help establish your business. It is also WooCommerce "
+"compatible and works smoothly with LMS plugins such as LearnDash and "
+"TutorLMS. This speed-optimized theme is easy to use, mobile-friendly, and "
+"SEO-friendly. Leadership Coach is translation-ready, Schema-friendly, and "
+"RTL script-ready. Check theme details at "
+"https://blossomthemes.com/wordpress-themes/leadership-coach/, demo at "
+"https://blossomthemes.com/theme-demo/?theme=leadership-coach, documentation "
+"at https://docs.blossomthemes.com/leadership-coach/, and get support at "
+"https://blossomthemes.com/support-ticket/."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://blossomthemes.com/"
+msgstr ""
+
+#: functions.php:561
+#. Translators: If there are characters in your language that are not supported
+#. by respective fonts, translate this to 'off'. Do not translate into your own
+#. language.
+msgctxt "Primary Font: on or off"
+msgid "on"
+msgstr ""
+
+#: functions.php:562
+msgctxt "Secondary Font: on or off"
+msgid "on"
+msgstr ""
+
+#: functions.php:563
+msgctxt "Tertiary Font: on or off"
+msgid "on"
+msgstr ""
+
+#: functions.php:564
+msgctxt "Site Title Font: on or off"
+msgid "on"
+msgstr ""
