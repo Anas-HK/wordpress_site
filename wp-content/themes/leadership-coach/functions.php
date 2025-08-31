@@ -58,6 +58,8 @@ function leadership_coach_contact_scripts()
 }
 add_action('wp_enqueue_scripts', 'leadership_coach_contact_scripts', 15);
 
+
+
 function leadership_coach_customize_script()
 {
     $my_theme = wp_get_theme();
@@ -1711,7 +1713,7 @@ function coachpress_lite_header()
         <div class="header-main">
             <div class="container">
                 <?php
-                coachpress_lite_site_branding();
+                leadership_coach_site_branding();
                 if ($header_layout == 'two') echo '<div class="nav-wrap">';
                 coachpress_lite_primary_navigation();
                 if ($header_layout == 'two') leadership_coach_contact_button();
@@ -1722,7 +1724,7 @@ function coachpress_lite_header()
     </header>
 
     <?php
-    coachpress_lite_mobile_navigation();
+    leadership_coach_mobile_navigation();
 }
 
 /**
@@ -1739,6 +1741,74 @@ function leadership_coach_contact_button()
     <?php
     endif;
 }
+
+/**
+ * Mobile Navigation (child override) — uses custom branding text
+ */
+function leadership_coach_mobile_navigation()
+{
+    $ed_cart   = get_theme_mod('ed_shopping_cart', true);
+    $ed_search = get_theme_mod('ed_header_search', true);
+    ?>
+    <div class="mobile-header">
+        <div class="container">
+            <?php // Use our custom header brand instead of the parent site's title
+            leadership_coach_site_branding(); ?>
+            <button class="toggle-btn" data-toggle-target=".main-menu-modal" data-toggle-body-class="showing-main-menu-modal" aria-expanded="false" data-set-focus=".close-main-nav-toggle">
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+            </button>
+            <div class="mobile-header-popup">
+                <div class="mbl-header-inner primary-menu-list main-menu-modal cover-modal" data-modal-target-string=".main-menu-modal">
+                    <button class="close close-main-nav-toggle" data-toggle-target=".main-menu-modal" data-toggle-body-class="showing-main-menu-modal" aria-expanded="false" data-set-focus=".main-menu-modal"></button>
+                    <div class="mobile-menu" aria-label="<?php esc_attr_e('Mobile', 'coachpress-lite'); ?>">
+                        <div class="main-menu-modal">
+                            <div class="mbl-header-top">
+                                <div class="header-right">
+                                    <?php if ($ed_search) {
+                                        echo '<div class="header-search">'
+                                            . '<button class="search-toggle" data-toggle-target=".mob-search-modal" data-toggle-body-class="showing-mob-search-modal" data-set-focus=".mob-search-modal .search-field" aria-expanded="false">'
+                                            . '<svg xmlns="http://www.w3.org/2000/svg" width="21.863" height="22" viewBox="0 0 21.863 22">'
+                                            . '<path d="M24.863,1170.255l-2.045,2.045L18,1167.482v-1.091l-.409-.409a8.674,8.674,0,0,1-5.727,2.046,8.235,8.235,0,0,1-6.273-2.591A8.993,8.993,0,0,1,3,1159.164a8.235,8.235,0,0,1,2.591-6.273,8.993,8.993,0,0,1,6.273-2.591,8.441,8.441,0,0,1,6.273,2.591,8.993,8.993,0,0,1,2.591,6.273,8.675,8.675,0,0,1-2.045,5.727l.409.409h.955ZM7.5,1163.664a5.76,5.76,0,0,0,4.364,1.773,5.969,5.969,0,0,0,4.364-1.773,6.257,6.257,0,0,0,0-8.727,5.76,5.76,0,0,0-4.364-1.773,5.969,5.969,0,0,0-4.364,1.773,5.76,5.76,0,0,0-1.773,4.364A6.308,6.308,0,0,0,7.5,1163.664Z" transform="translate(-3 -1150.3)" fill="#806e6a"/>'
+                                            . '</svg>'
+                                            . '</button>'
+                                            . '<div class="header-search-wrap mob-search-modal cover-modal" data-modal-target-string=".mob-search-modal">'
+                                            . '<div class="header-search-inner">';
+                                            get_search_form();
+                                            echo '<button class="close" data-toggle-target=".mob-search-modal" data-toggle-body-class="showing-mob-search-modal" data-set-focus=".mob-search-modal .search-field" aria-expanded="false">' . __('Close', 'coachpress-lite') . '</button>'
+                                            . '</div>'
+                                            . '</div>'
+                                            . '</div><!-- .header-search -->';
+                                    } ?>
+                                    <?php if (function_exists('coachpress_lite_is_woocommerce_activated') && coachpress_lite_is_woocommerce_activated() && $ed_cart) {
+                                        echo '<div class="header-cart">';
+                                        if (function_exists('coachpress_lite_wc_cart_count')) {
+                                            coachpress_lite_wc_cart_count();
+                                        }
+                                        echo '</div>';
+                                    } ?>
+                                </div>
+                            </div>
+                            <div class="mbl-header-mid">
+                                <?php if (function_exists('coachpress_lite_primary_navigation')) coachpress_lite_primary_navigation(false); ?>
+                                <?php if (function_exists('coachpress_lite_secondary_navigation')) coachpress_lite_secondary_navigation(false); ?>
+                            </div>
+                            <div class="mbl-header-bottom">
+                                <?php if (function_exists('coachpress_lite_header_contact')) coachpress_lite_header_contact(false); ?>
+                                <?php if (function_exists('coachpress_lite_social_links') && coachpress_lite_social_links(false)) {
+                                    echo '<div class="header-social">';
+                                    coachpress_lite_social_links();
+                                    echo '</div>';
+                                } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php }
 
 /**
  * Footer Bottom
@@ -2525,19 +2595,6 @@ function leadership_coach_dashboard_widget_content()
  * Include admin classes
  */
 require_once get_stylesheet_directory() . '/inc/admin/class-appointments-admin.php';
-/**
- * Enqueue custom navigation script
- */
-function leadership_coach_custom_nav_script() {
-    wp_enqueue_script(
-        'custom-nav',
-        get_stylesheet_directory_uri() . '/custom-nav.js',
-        array(),
-        '1.0.0',
-        true
-    );
-}
-add_action('wp_enqueue_scripts', 'leadership_coach_custom_nav_script');
 
 /**
  * Force correct template for calendar page
@@ -2614,8 +2671,51 @@ function leadership_coach_enqueue_additional_styles() {
 }
 add_action('wp_enqueue_scripts', 'leadership_coach_enqueue_additional_styles');
 
+
 /**
  * Disable breadcrumbs shown by the parent theme across inner pages
  * This prevents the Home > About trail from appearing.
  */
 add_filter('theme_mod_ed_breadcrumb', '__return_false');
+
+/**
+ * Disable header search icon globally
+ */
+add_filter('theme_mod_ed_header_search', '__return_false');
+
+/**
+ * Change site title for EMBRACED Parenting
+ */
+// Header brand text used only in the visible header (independent of Site Title)
+function leadership_coach_site_branding() {
+    $brand = 'Embraced Parenting'; // change to the exact header text you want
+
+    echo '<div class="site-branding">';
+    // keep the custom logo if one is set
+    if (function_exists('has_custom_logo') && has_custom_logo()) {
+        the_custom_logo();
+    }
+    $tag = (is_front_page() && !is_paged()) ? 'h1' : 'p';
+    printf(
+        '<%1$s class="site-title"><a href="%2$s" rel="home">%3$s</a></%1$s>',
+        esc_attr($tag),
+        esc_url(home_url('/')),
+        esc_html($brand)
+    );
+    echo '</div>';
+}
+
+
+// Remove the site name (and tagline) from the <title> tag shown in the tab/hover
+add_filter('document_title_parts', function ($parts) {
+    // Drop "Leadership Coach" (the site brand) everywhere
+    unset($parts['site'], $parts['tagline']);
+
+    // Optional: if the front page would otherwise show only the site name,
+    // give it a simple fallback title
+    if ((is_front_page() || is_home()) && (empty($parts['title']) || $parts['title'] === get_bloginfo('name'))) {
+        $parts['title'] = 'Home';
+    }
+
+    return $parts;
+}, 999); // high priority to beat parent theme/SEO filters

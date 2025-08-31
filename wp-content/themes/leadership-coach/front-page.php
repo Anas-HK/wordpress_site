@@ -32,54 +32,85 @@ get_header(); ?>
         
         <!-- EMBRACED Framework Section -->
         <section class="embraced-section">
-            <div class="container">
-                <h2 class="section-title">The EMBRACED Framework</h2>
-                <p class="framework-intro">At the heart of my coaching is EMBRACED, a framework that reflects the values I hold close as both a parent and a coach:</p>
-                <div class="embraced-grid">
-                    <div class="embraced-card">
-                        <div class="embraced-icon">E</div>
-                        <h3>Empathy</h3>
-                        <p>Seeing and feeling with your child</p>
+            <div class="container embraced-layout">
+                <!-- Left column: image placeholder -->
+                <div class="embraced-left">
+                    <div class="embraced-image-placeholder" aria-label="Framework image placeholder 1" role="img">
+                        <span>Image Placeholder</span>
                     </div>
-                    <div class="embraced-card">
-                        <div class="embraced-icon">M</div>
-                        <h3>Mindful Presence</h3>
-                        <p>Parenting with awareness and calm</p>
-                    </div>
-                    <div class="embraced-card">
-                        <div class="embraced-icon">B</div>
-                        <h3>Bonding & Belonging</h3>
-                        <p>Creating secure attachment and safety</p>
-                    </div>
-                    <div class="embraced-card">
-                        <div class="embraced-icon">R</div>
-                        <h3>Respect</h3>
-                        <p>Honoring your child's voice and individuality</p>
-                    </div>
-                    <div class="embraced-card">
-                        <div class="embraced-icon">A</div>
-                        <h3>Attunement</h3>
-                        <p>Tuning into emotions beneath behavior</p>
-                    </div>
-                    <div class="embraced-card">
-                        <div class="embraced-icon">C</div>
-                        <h3>Compassion</h3>
-                        <p>Responding with mercy and kindness</p>
-                    </div>
-                    <div class="embraced-card">
-                        <div class="embraced-icon">E</div>
-                        <h3>Empowerment</h3>
-                        <p>Nurturing resilience and growth in both parent and child</p>
-                    </div>
-                    <div class="embraced-card">
-                        <div class="embraced-icon">D</div>
-                        <h3>Development</h3>
-                        <p>Supporting lifelong learning for you and your family</p>
+                    <div class="embraced-image-placeholder" aria-label="Framework image placeholder 2" role="img">
+                        <span>Image Placeholder</span>
                     </div>
                 </div>
-                <div class="framework-conclusion">
-                    <p>This approach is not about striving for perfection—it's about walking the journey with intention, heart, and connection.</p>
-                    <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-primary">Join Me in This Journey</a>
+
+                <!-- Right column: title + acronym list stacked top-to-bottom -->
+                <div class="embraced-right">
+                    <h2 class="section-title">The EMBRACED Framework</h2>
+                    <p class="framework-intro">At the heart of my coaching is EMBRACED — shown here as a vertical acronym to emphasize each pillar:</p>
+
+                    <ul class="embraced-list" aria-label="EMBRACED acronym">
+                        <li class="embraced-item">
+                            <span class="embraced-letter">E</span>
+                            <div class="embraced-text">
+                                <h3>Empathy</h3>
+                                <p>Seeing and feeling with your child</p>
+                            </div>
+                        </li>
+                        <li class="embraced-item">
+                            <span class="embraced-letter">M</span>
+                            <div class="embraced-text">
+                                <h3>Mindful Presence</h3>
+                                <p>Parenting with awareness and calm</p>
+                            </div>
+                        </li>
+                        <li class="embraced-item">
+                            <span class="embraced-letter">B</span>
+                            <div class="embraced-text">
+                                <h3>Bonding & Belonging</h3>
+                                <p>Creating secure attachment and safety</p>
+                            </div>
+                        </li>
+                        <li class="embraced-item">
+                            <span class="embraced-letter">R</span>
+                            <div class="embraced-text">
+                                <h3>Respect</h3>
+                                <p>Honoring your child's voice and individuality</p>
+                            </div>
+                        </li>
+                        <li class="embraced-item">
+                            <span class="embraced-letter">A</span>
+                            <div class="embraced-text">
+                                <h3>Attunement</h3>
+                                <p>Tuning into emotions beneath behavior</p>
+                            </div>
+                        </li>
+                        <li class="embraced-item">
+                            <span class="embraced-letter">C</span>
+                            <div class="embraced-text">
+                                <h3>Compassion</h3>
+                                <p>Responding with mercy and kindness</p>
+                            </div>
+                        </li>
+                        <li class="embraced-item">
+                            <span class="embraced-letter">E</span>
+                            <div class="embraced-text">
+                                <h3>Empowerment</h3>
+                                <p>Nurturing resilience and growth in both parent and child</p>
+                            </div>
+                        </li>
+                        <li class="embraced-item">
+                            <span class="embraced-letter">D</span>
+                            <div class="embraced-text">
+                                <h3>Development</h3>
+                                <p>Supporting lifelong learning for you and your family</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="framework-conclusion">
+                        <p>This approach is not about striving for perfection—it's about walking the journey with intention, heart, and connection.</p>
+                        <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-primary">Join Me in This Journey</a>
+                    </div>
                 </div>
             </div>
         </section>

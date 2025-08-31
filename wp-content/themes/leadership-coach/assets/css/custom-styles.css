@@ -721,56 +721,182 @@ select:focus {
 }
 
 /* EMBRACED Framework Section */
-.embraced-section {
-    background: #fff;
+.embraced-section { 
+    background: var(--white-color) !important; 
+    padding: 4rem 0 !important;
 }
 
-.embraced-section .framework-intro {
-    max-width: 900px;
-    margin: 0 auto 2rem;
-    text-align: center;
-}
-
-.embraced-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
-    max-width: 1200px;
+/* Two-column layout on desktop - improved alignment (force flex to avoid grid glitches) */
+.embraced-section .embraced-layout,
+.container.embraced-layout {
+    display: flex !important;
+    flex-direction: row !important; /* ensure two columns on desktop */
+    flex-wrap: nowrap !important;
+    gap: 3rem !important;
+    align-items: flex-start !important;
+    width: 100%;
+    max-width: 1170px; /* ensure same max width as theme container */
     margin: 0 auto;
+    min-height: 600px !important; /* keep overall visual balance */
 }
 
-.embraced-card {
-    background: var(--light-background);
-    border: 1px solid rgba(var(--primary-purple-rgb), 0.15);
-    border-radius: 14px;
-    padding: 1.25rem;
-    text-align: center;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+/* Prevent child overflow and define equal columns */
+.embraced-left,
+.embraced-right {
+    min-width: 0; /* critical for grid/flex children to avoid overflow */
+    flex: 1 1 0 !important;
 }
 
-.embraced-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: inline-flex;
+/* Maintain column order explicitly */
+.embraced-left { order: 1; }
+.embraced-right { order: 2; }
+
+/* Left column with two equal-height placeholders */
+.embraced-section .embraced-left,
+.embraced-layout .embraced-left {
+    display: grid !important;
+    grid-template-rows: 1fr 1fr !important; /* Equal height rows */
+    grid-auto-rows: 1fr; /* fallback if explicit height not available */
+    gap: 1.5rem !important;
+    height: 100% !important;
+}
+
+.embraced-image-placeholder {
+    width: 100%;
+    min-height: 240px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac));
-    color: var(--white-color);
-    font-weight: 700;
-    margin-bottom: .75rem;
+    color: var(--secondary-lilac);
+    background: var(--light-background);
+    border: 2px dashed var(--secondary-lilac);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(var(--primary-purple-rgb), 0.08);
+    transition: all 0.3s ease;
 }
 
-.embraced-card h3 {
-    margin: .25rem 0 .5rem;
+.embraced-image-placeholder:hover {
+    border-color: var(--primary-purple);
+    color: var(--primary-purple);
+    box-shadow: 0 8px 25px rgba(var(--primary-purple-rgb), 0.15);
+}
+
+.embraced-image-placeholder span { 
+    font-family: var(--heading-font); 
+    font-weight: 600; 
     font-size: 1.1rem;
+}
+
+/* Right column - content alignment */
+.embraced-right { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.embraced-right .section-title { 
+    text-align: left;
+    margin: 0 0 1.5rem 0; 
+    font-size: var(--font-size-3xl);
     color: var(--primary-purple);
 }
 
+.embraced-right .framework-intro { 
+    font-size: var(--font-size-lg);
+    color: var(--dark-text);
+    margin: 0 0 2rem 0;
+    line-height: 1.6;
+}
+
+/* EMBRACED acronym list */
+.embraced-list { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0 0 2rem 0; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1rem;
+}
+
+.embraced-item { 
+    display: grid; 
+    grid-template-columns: 60px 1fr; 
+    gap: 1rem; 
+    align-items: start; 
+    background: var(--light-background); 
+    border: 1px solid rgba(var(--primary-purple-rgb), 0.12); 
+    border-radius: 12px; 
+    padding: 1rem 1.25rem; 
+    box-shadow: 0 4px 15px rgba(var(--primary-purple-rgb), 0.06);
+    transition: all 0.3s ease;
+}
+
+.embraced-item:hover {
+    border-color: var(--secondary-lilac);
+    box-shadow: 0 6px 20px rgba(var(--primary-purple-rgb), 0.12);
+    transform: translateY(-2px);
+}
+
+.embraced-letter { 
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac)); 
+    color: var(--white-color); 
+    font-weight: 700; 
+    font-size: 1.3rem;
+    font-family: var(--heading-font);
+    box-shadow: 0 4px 12px rgba(var(--primary-purple-rgb), 0.3);
+}
+
+.embraced-text h3 { 
+    margin: 0 0 0.5rem; 
+    font-size: 1.2rem; 
+    color: var(--primary-purple);
+    font-family: var(--heading-font);
+    font-weight: 600;
+}
+
+.embraced-text p { 
+    margin: 0; 
+    color: var(--dark-text);
+    line-height: 1.5;
+    font-size: var(--font-size-base);
+}
+
+/* Framework conclusion */
 .framework-conclusion {
+    margin-top: auto; /* Push to bottom of flex container */
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(var(--primary-purple-rgb), 0.1);
+}
+
+.framework-conclusion p { 
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: var(--dark-text);
+    font-size: var(--font-size-lg);
     text-align: center;
-    max-width: 900px;
-    margin: 2rem auto 0;
+}
+
+/* Responsive: collapse to single column on mobile widths (≤600px) */
+@media (max-width: 600px) {
+    .embraced-section .embraced-layout { display: flex !important; flex-direction: column !important; }
+    .embraced-left { grid-template-rows: 1fr 1fr; margin-bottom: 1.5rem; order: 1; }
+    .embraced-right { order: 2; }
+    /* Ensure both placeholders are visible and stacked */
+    .embraced-left .embraced-image-placeholder:nth-child(2) { display: flex; }
+    .embraced-left, .embraced-right { width: 100% !important; max-width: 100% !important; }
+    .embraced-image-placeholder { min-height: 280px; }
+}
+
+/* Ensure explicit row direction on wider screens in case of parent overrides */
+@media (min-width: 601px) {
+    .embraced-section .embraced-layout { flex-direction: row !important; }
 }
 
 /* Why Parenting Can Feel Overwhelming */

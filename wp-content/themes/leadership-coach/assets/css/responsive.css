@@ -280,3 +280,16 @@ html {
         page-break-after: avoid;
     }
 }
+
+/* Ensure hamburger/mobile header is hidden on large screens */
+@media screen and (min-width: 1025px) {
+    /* Parent theme outputs a .mobile-header container for the mobile menu */
+    .mobile-header { 
+        display: none !important; 
+    }
+
+    /* Also hide the header-top secondary off-canvas menu toggle on desktop */
+    .site-header.style-two .header-top .secondary-menu {
+        display: none !important;
+    }
+}
