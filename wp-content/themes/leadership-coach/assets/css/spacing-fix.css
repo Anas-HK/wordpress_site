@@ -1,0 +1,143 @@
+/* 
+ * Optimize spacing between navbar and hero section and increase hero height
+ */
+
+/* Increase hero section height with moderate padding */
+.hero-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+    margin-top: 0 !important;
+    min-height: 400px;
+}
+
+/* Override the existing hero section padding rules with balanced spacing */
+body .hero-section,
+.front-page .hero-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+    margin-top: 0 !important;
+    min-height: 400px;
+}
+
+/* Adjust header bottom padding for better flow - OVERRIDDEN BY NAVBAR HEIGHT REDUCTION BELOW */
+
+/* Ensure no unexpected margin on the content area */
+#primary.content-area {
+    margin-top: 0;
+}
+
+/* Target the main content container to remove any top margins */
+#main.site-main {
+    margin-top: 0;
+}
+
+/* Optimal spacing between header and hero section */
+.site-header + #primary .hero-section {
+    padding-top: 2rem !important;
+    margin-top: 0 !important;
+    min-height: 400px;
+}
+
+/* Adjust spacing between hero section and EMBRACED Framework section */
+.embraced-section {
+    padding-top: 2rem !important;
+    padding-bottom: 4rem !important;
+}
+
+body .embraced-section,
+.front-page .embraced-section {
+    padding-top: 2rem !important;
+    padding-bottom: 4rem !important;
+}
+
+/* Reduce spacing for parenting challenges section */
+.parenting-challenges {
+    padding-top: 0rem !important;
+    padding-bottom: 4rem !important;
+}
+
+body .parenting-challenges,
+.front-page .parenting-challenges {
+    padding-top: 0rem !important;
+    padding-bottom: 4rem !important;
+}
+
+/* Remove enforced tall height on EMBRACED layout that creates large gaps */
+.embraced-section .embraced-layout,
+.container.embraced-layout {
+    min-height: 0 !important; /* override 600px min-height */
+}
+
+/* Normalize homepage section spacings to 4rem between sections */
+/* Strategy: hero has 4rem top+bottom; every subsequent section has 0 top, 4rem bottom */
+
+/* High-specificity homepage rules */
+body.home section.hero-section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+    min-height: 400px !important;
+}
+
+body.home section.embraced-section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+body.home section.parenting-challenges,
+body.home section.about-preview,
+body.home section.work-together-section,
+body.home section.testimonials-section,
+body.home section.newsletter-section,
+body.home section.final-cta-section {
+    padding-top: 0 !important;
+    padding-bottom: 4rem !important;
+}
+
+/* Remove the forced 600px min-height on EMBRACED layout that creates large gaps */
+body.home .embraced-section .embraced-layout,
+body.home .container.embraced-layout,
+body .embraced-section .embraced-layout,
+body .container.embraced-layout,
+.embraced-section .embraced-layout,
+.container.embraced-layout {
+    min-height: auto !important;
+}
+
+/* Also remove any internal spacing that might be adding to the gap */
+body.home .framework-conclusion-wide {
+    margin-top: 1rem !important;
+    margin-bottom: 0 !important;
+}
+
+/* Keep header branding reasonable - OVERRIDDEN BY NAVBAR HEIGHT REDUCTION BELOW */
+
+/* Mobile retains same between-section spacing (4rem) and hero height */
+@media (max-width: 768px) {
+    body.home section.hero-section {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+        min-height: 400px !important;
+    }
+    body.home section.embraced-section {
+        padding-top: 0 !important;
+        padding-bottom: 4rem !important;
+    }
+    
+    body.home section.parenting-challenges,
+    body.home section.about-preview,
+    body.home section.work-together-section,
+    body.home section.testimonials-section,
+    body.home section.newsletter-section,
+    body.home section.final-cta-section {
+        padding-top: 0 !important;
+        padding-bottom: 4rem !important;
+    }
+}
+
+/* Global homepage safeguard: eliminate any margins added to "-section" blocks */
+/* This prevents unexpected gaps like the one above the "Why Parenting..." section. */
+body.home section[class*="-section"] {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+

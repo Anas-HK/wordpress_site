@@ -1,3 +1,170 @@
+.mobile-header {
+    padding: 0 !important;
+}
+
+/* Clean focus/active style for all nav links */
+.main-navigation a:focus,
+.main-navigation a:active,
+#mobile-primary-navigation ul li a:focus,
+#mobile-primary-navigation ul li a:active {
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: underline;  /* subtle cleaner focus effect */
+}
+.main-navigation a,
+#mobile-primary-navigation ul li a {
+  text-decoration: none !important;
+}
+
+/* Remove underline and square box from contact/email links in hamburger menu */
+.main-menu-modal a,
+#mobile-primary-navigation a {
+  text-decoration: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Optional: cleaner hover/focus style */
+.main-menu-modal a:hover,
+.main-menu-modal a:focus,
+#mobile-primary-navigation a:hover,
+#mobile-primary-navigation a:focus {
+  text-decoration: none !important;
+  color: #0073e6 !important;   /* pick a hover color instead of underline */
+}
+
+
+/* Remove ugly default cross */
+.close.close-main-nav-toggle::before,
+.close.close-main-nav-toggle::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Reset theme's close button styles */
+.close.close-main-nav-toggle {
+  all: unset;                /* wipe out theme styles */
+  position: absolute;        /* place it inside the menu */
+  top: 15px;
+  left: 15px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  z-index: 10001;            /* above everything in menu */
+  line-height: 1;
+}
+
+/* Add ✕ as the visible icon */
+.close.close-main-nav-toggle::before {
+  content: "✕";
+  display: inline-block;
+}
+
+/* Remove outlines / focus box */
+.close.close-main-nav-toggle:focus,
+.toggle-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+
+
+/* ===============================
+   Header alignment & logo sizing
+   =============================== */
+/* Lay out brand (logo + title) and nav in one row */
+.site-header.style-two .header-main .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* Keep branding elements aligned horizontally */
+.site-header .site-branding {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Reduce extra top/bottom padding on branding to better match nav height */
+.site-header.style-two .header-main .site-branding {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* Ensure title sits neatly next to logo */
+.site-header .site-title {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.site-header .site-title a { display: inline-block; }
+
+/* Logo sizing: keep crisp, don’t stretch, cap height for a tidy header */
+.site-header.style-two .custom-logo-link img {
+    display: block;
+    width: auto !important; /* override dynamic width from Customizer */
+    height: auto;
+    max-height: 104px; /* slightly larger so it visually matches nav height */
+}
+
+/* Make the nav block use remaining space and align to the right */
+.site-header.style-two .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+}
+
+/* Slightly reduce vertical padding on primary menu for better alignment */
+@media (min-width: 992px) {
+  .site-header.style-two .main-navigation ul li a {
+      padding-top: 20px;
+      padding-bottom: 20px;
+  }
+}
+
+/* Keep branding and sizes stable on tablet/mobile (<=1024px) */
+@media (max-width: 1024px) {
+  /* Mobile header layout mirrors desktop alignment */
+  .mobile-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+  }
+
+  .mobile-header .site-branding {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+  }
+
+  /* Prevent logo jump and allow a sensible size on tablet/mobile */
+  .mobile-header .custom-logo-link img,
+  .site-header .custom-logo-link img {
+      width: auto !important; /* override dynamic width */
+      height: auto;
+      max-height: 88px; /* allow a bit more height on tablet/mobile too */
+  }
+
+  /* Stop heading from enlarging due to generic h1 rules */
+  .site-header h1.site-title,
+  .site-header p.site-title,
+  .mobile-header h1.site-title,
+  .mobile-header p.site-title {
+      /* Smoothly scale within reasonable bounds across smaller screens */
+      font-size: clamp(22px, 1.6vw + 16px, 30px) !important;
+      line-height: 1.15;
+      margin: 0;
+  }
+}
+
 /*
  * Custom Styles for Leadership Coach WordPress Theme
  * Enhanced Color Palette and Typography System
@@ -51,9 +218,59 @@ a:focus {
     background-color: var(--light-background);
 }
 
-.site-header.style-two .header-top {
+/* Ensure the top bar is visible and structured */
+.site-header .header-top {
+    display: block !important;
+    padding: 4px 0;
+    min-height: 36px; /* ensure icons/text fit */
     background: linear-gradient(135deg, var(--accent-pink) 0%, var(--secondary-lilac) 100%);
 }
+.site-header .header-top .container {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.site-header .header-top .header-left,
+.site-header .header-top .header-right {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.site-header .header-top .header-left { margin-right: auto; }
+.site-header .header-top .header-right { margin-left: auto; }
+
+/* Phone/email styles */
+.site-header .header-top .header-block {
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+}
+.site-header .header-top .header-block i {
+    font-size: 1.15rem;
+    margin-right: 6px;
+    line-height: 1;
+    vertical-align: middle;
+    display: inline-block;
+}
+.site-header .header-top .header-block a,
+.site-header .header-top .header-block svg {
+    color: rgba(var(--black-color-rgb), 0.8);
+}
+.site-header .header-top .header-block + .header-block { margin-left: 18px; }
+
+/* Social icons on the right */
+.site-header .header-top .header-social .social-list {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.site-header .header-top .header-social .social-list i { font-size: 1.2rem; line-height: 1; }
+.site-header .header-top .header-social .social-list a { color: rgba(var(--black-color-rgb), 0.8); }
+.site-header .header-top .header-social .social-list a:hover { color: var(--primary-purple); }
 
 .main-navigation ul li:hover > a,
 .main-navigation ul li > a:focus,
@@ -352,9 +569,9 @@ select:focus {
 }
 
 .contact-form .contact-submit {
-    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-lilac) 100%);
-    color: var(--light-background);
-    border: none;
+    background: var(--primary-purple) !important;
+    color: white !important;
+    border: 2px solid var(--primary-purple) !important;
     padding: var(--spacing-md) var(--spacing-2xl);
     border-radius: 25px;
     font-family: var(--heading-font);
@@ -362,12 +579,16 @@ select:focus {
     font-size: var(--font-size-base);
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(155, 93, 229, 0.2);
+    box-shadow: none;
+    text-decoration: none !important;
 }
 
 .contact-form .contact-submit:hover {
+    background: var(--secondary-lilac) !important;
+    color: var(--white-color) !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(155, 93, 229, 0.3);
+    box-shadow: 0 8px 25px rgba(var(--primary-purple-rgb), 0.4) !important;
+    text-decoration: none !important;
 }
 
 .contact-form .contact-submit:disabled,
@@ -400,17 +621,24 @@ select:focus {
     display: flex;
     align-items: flex-start;
     margin-bottom: var(--spacing-lg);
-    padding: var(--spacing-md);
+    padding: 1.25rem;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 8px;
     border-left: 4px solid var(--primary-purple);
+    gap: 1rem;
 }
 
 .contact-details .contact-item i {
     color: var(--primary-purple);
-    font-size: var(--font-size-lg);
-    margin-right: var(--spacing-md);
-    margin-top: var(--spacing-xs);
+    font-size: 1.5rem;
+    margin-right: 1.25rem;
+    margin-top: 0.25rem;
+    min-width: 32px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .contact-details .contact-item-content h3 {
@@ -644,10 +872,47 @@ select:focus {
 
 /* Homepage Styles */
 .hero-section {
-    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac));
+    margin-top: 140px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac)); /* fallback when no image is set */
     color: var(--white-color);
     padding: 4rem 0;
     text-align: center;
+}
+
+/* Blurred background image layer (only rendered when image exists) */
+.hero-section .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(12px);
+    transform: scale(1.06); /* avoid edge clipping after blur */
+    z-index: 0;
+}
+
+/* Subtle dark overlay for readability (no pink tint) */
+.hero-section.hero-has-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 0;
+}
+
+/* Keep content above blurred layer */
+.hero-section .container,
+.hero-section .hero-content { position: relative; z-index: 1; }
+/* If a background image is set via Customizer */
+.hero-section.hero-has-bg {
+    /* background handled by .hero-bg; keep base background transparent */
+    background: transparent;
+}
+/* Elegant inner container spacing when bg image is used */
+.hero-section.hero-has-bg .container {
+    backdrop-filter: saturate(1.1);
 }
 
 .hero-title {
@@ -673,14 +938,20 @@ select:focus {
 }
 
 .btn {
-    display: inline-block;
+    display: inline-flex; /* center text and icons */
+    align-items: center;
+    justify-content: center;
     padding: 0.875rem 2rem;
-    border-radius: 6px;
+    border-radius: 12px; /* slightly larger radius for mobile look */
     text-decoration: none;
+    text-align: center; /* multi-line labels centered */
     font-family: var(--heading-font);
     font-weight: 600;
+    line-height: 1.2; /* avoid tall multi-line spacing */
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    box-sizing: border-box;
+    min-height: 52px; /* consistent tap target */
 }
 
 .btn-primary {
@@ -737,7 +1008,6 @@ select:focus {
     width: 100%;
     max-width: 1170px; /* ensure same max width as theme container */
     margin: 0 auto;
-    min-height: 600px !important; /* keep overall visual balance */
 }
 
 /* Prevent child overflow and define equal columns */
@@ -785,6 +1055,20 @@ select:focus {
     font-family: var(--heading-font); 
     font-weight: 600; 
     font-size: 1.1rem;
+}
+
+/* When images are provided via Customizer, fill the box */
+.embraced-left .embraced-image-placeholder.has-image {
+    border: 0;
+    background: none;
+    padding: 0;
+}
+.embraced-left .embraced-image-placeholder.has-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
 }
 
 /* Right column - content alignment */
@@ -876,33 +1160,60 @@ select:focus {
 }
 
 .framework-conclusion p { 
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.0rem;
     font-style: italic;
     color: var(--dark-text);
     font-size: var(--font-size-lg);
     text-align: center;
 }
+/* keep framework button centered */
+.framework-conclusion { display: flex; flex-direction: column; align-items: center; }
+.framework-conclusion .btn { display: inline-flex; align-items: center; justify-content: center; margin-left: auto; margin-right: auto; width: auto; max-width: 100%; }
 
-/* Responsive: collapse to single column on mobile widths (≤600px) */
-@media (max-width: 600px) {
+/* wide variant: show CTA centered under both columns */
+.framework-conclusion-wide {
+    width: 100%;
+    margin-top: 1.75rem; /* placed below the two-column layout */
+    margin-bottom: 0; /* Remove any bottom margin */
+    padding-top: 0; /* no divider line above */
+    border-top: 0; /* ensure no horizontal rule shows */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Center the testimonials CTA button */
+.testimonials-cta { text-align: center; display: block; margin-top: 1.25rem; }
+.testimonials-cta .btn { display: inline-flex; align-items: center; justify-content: center; width: auto; max-width: 100%; margin: 0 auto; }
+
+/* Responsive: collapse to single column on widths ≤750px */
+@media (max-width: 750px) {
     .embraced-section .embraced-layout { display: flex !important; flex-direction: column !important; }
     .embraced-left { grid-template-rows: 1fr 1fr; margin-bottom: 1.5rem; order: 1; }
     .embraced-right { order: 2; }
-    /* Ensure both placeholders are visible and stacked */
-    .embraced-left .embraced-image-placeholder:nth-child(2) { display: flex; }
     .embraced-left, .embraced-right { width: 100% !important; max-width: 100% !important; }
-    .embraced-image-placeholder { min-height: 280px; }
+    .embraced-image-placeholder { min-height: 240px; }
+    /* When compacting to one column, hide any placeholders marked for compact mode */
+    .embraced-left .embraced-image-placeholder.hide-mobile-compact { display: none !important; }
+    .parenting-challenges .section-media img.section-photo { max-height: 340px; }
+    .final-cta-section .section-media img.section-photo { max-height: 360px; }
 }
 
 /* Ensure explicit row direction on wider screens in case of parent overrides */
-@media (min-width: 601px) {
+@media (min-width: 751px) {
     .embraced-section .embraced-layout { flex-direction: row !important; }
+    /* show all placeholders on wider screens */
+    .embraced-left .embraced-image-placeholder.hide-mobile-compact { display: flex !important; }
 }
 
 /* Why Parenting Can Feel Overwhelming */
 .parenting-challenges {
     background: linear-gradient(180deg, rgba(var(--primary-purple-rgb), .06), rgba(203, 166, 247, .08));
 }
+.parenting-challenges .section-media { text-align: center; margin: 0 auto 1rem; padding: .5rem; background: #fff; border: 1px solid rgba(var(--primary-purple-rgb), .12); border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,.06); }
+.parenting-challenges .section-media img.section-photo { display:block; margin:0 auto; max-width:100%; width:auto; height:auto; max-height:480px; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,.08); object-fit: contain; }
 
 .parenting-challenges .challenges-content {
     max-width: 900px;
@@ -1032,16 +1343,24 @@ select:focus {
 /* Ensure buttons align across cards by pinning them to the bottom */
 .work-card .btn {
     margin-top: auto;
+    align-self: center; /* center horizontally inside the card */
 }
 
-/* On light card backgrounds, use outline-style secondary buttons for readability */
-.work-together-section .btn-secondary {
+/* On light card backgrounds, use consistent outline-style buttons for all three cards */
+.work-together-section .btn,
+.work-together-section .btn-primary,
+.work-together-section .btn-secondary,
+.work-together-section .btn-outline {
     background: transparent;
     color: var(--primary-purple);
     border-color: var(--primary-purple);
+    width: auto; /* prevent full-width buttons on desktop */
 }
 
-.work-together-section .btn-secondary:hover {
+.work-together-section .btn:hover,
+.work-together-section .btn-primary:hover,
+.work-together-section .btn-secondary:hover,
+.work-together-section .btn-outline:hover {
     background: var(--primary-purple);
     color: var(--white-color);
 }
@@ -1055,7 +1374,7 @@ select:focus {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.25rem;
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 0 auto 1.25rem; /* add spacing below grid to avoid overlap with CTA */
 }
 .testimonial-card {
     background: #fff;
@@ -1065,6 +1384,11 @@ select:focus {
 }
 .testimonial-card blockquote { margin: 0 0 .75rem; font-style: italic; }
 .testimonial-card cite { color: var(--primary-purple); font-weight: 600; }
+
+/* Force single-column testimonials below 1200px */
+@media (max-width: 1199px) {
+    .testimonials-grid { grid-template-columns: 1fr !important; }
+}
 
 /* Newsletter */
 .newsletter-section {
@@ -1127,8 +1451,9 @@ body .newsletter-form .form-group > * {
 .page-template-page-about-php .about-main-content h2 { font-size: var(--font-size-2xl); margin: .75rem 0 .5rem; }
 .page-template-page-about-php .about-main-content h3 { font-size: var(--font-size-xl); margin: .5rem 0 .25rem; }
 .page-template-page-about-php .about-main-content p { line-height: 1.7; font-size: 1.05rem; }
-.about-hero-image { width: 100%; height: 360px; object-fit: cover; border-radius: 14px; margin-bottom: 1.5rem; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
-.about-photo { width: 100%; height: 300px; object-fit: cover; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+.about-hero-image { max-width: 100%; width: auto; height: auto; display:block; margin: 0 auto 1.5rem; object-fit: contain; border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+.page-template-page-about-php .featured-image { padding:.5rem; background:#fff; border:1px solid rgba(var(--primary-purple-rgb), .12); border-radius:16px; box-shadow:0 8px 26px rgba(0,0,0,.08); }
+.about-photo { max-width: 100%; width: auto; height: auto; display: block; margin: 0 auto; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.08); }
 
 .coach-credentials,
 .coach-experience,
@@ -1170,6 +1495,8 @@ body .newsletter-form .form-group > * {
     color: var(--white-color);
     text-align: center;
 }
+.final-cta-section .section-media { max-width: 980px; margin: 0 auto 1rem; padding:.5rem; background:#fff; border:1px solid rgba(var(--primary-purple-rgb), .12); border-radius:16px; box-shadow:0 8px 26px rgba(0,0,0,.08); }
+.final-cta-section .section-media img.section-photo { display:block; margin:0 auto; max-width:100%; width:auto; height:auto; max-height:520px; border-radius:12px; box-shadow: 0 10px 24px rgba(0,0,0,.12); object-fit: contain; }
 .final-cta-section p { max-width: 820px; margin: 0.5rem auto 1.5rem; }
 
 /* CTA Section */
@@ -1214,13 +1541,28 @@ body .newsletter-form .form-group > * {
     .hero-actions {
         flex-direction: column;
         align-items: center;
+        gap: 0.75rem;
     }
     
     .btn {
         width: 100%;
-        max-width: 300px;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto; /* center buttons on mobile */
+    }
+
+    /* ensure key homepage buttons center even inside flex containers */
+    .framework-conclusion .btn,
+    .testimonials-cta .btn,
+    .work-card .btn,
+    .hero-actions .btn {
+        align-self: center;
     }
     
+    /* override full-width rule for the two CTAs that must stay compact */
+    .framework-conclusion .btn,
+    .testimonials-cta .btn { display: inline-flex !important; width: fit-content !important; max-width: 95% !important; }
+
     .about-content {
         grid-template-columns: 1fr;
         text-align: center;
@@ -1230,6 +1572,7 @@ body .newsletter-form .form-group > * {
         grid-template-columns: 1fr;
     }
 }
+
 
 /* Global button hover normalization: mimic .btn-outline hover on all buttons */
 .btn:hover,
@@ -1241,17 +1584,46 @@ body .newsletter-form .form-group > * {
     box-shadow: none;
 }
 
+/* Prevent underline on all button-like elements, including on hover/focus */
+a.btn,
+a.btn-primary,
+a.btn-secondary,
+.btn,
+.wp-block-button__link,
+.button,
+input[type="submit"],
+input[type="button"],
+button {
+    text-decoration: none !important;
+}
+
+a.btn:hover,
+a.btn-primary:hover,
+a.btn-secondary:hover,
+.btn:hover,
+.wp-block-button__link:hover,
+.button:hover,
+.btn:focus,
+.btn:focus-visible,
+a.btn-primary:focus,
+a.btn-secondary:focus,
+.wp-block-button__link:focus,
+.button:focus {
+    text-decoration: none !important;
+}
+
 /* Keep forms consistent, including submits without .btn class */
 .contact-form .contact-submit:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 button:hover {
-    background: var(--primary-purple);
-    color: var(--white-color);
-    border-color: var(--primary-purple);
-    transform: none;
-    box-shadow: none;
+    background: var(--secondary-lilac) !important;
+    color: var(--white-color) !important;
+    border-color: var(--secondary-lilac) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(var(--primary-purple-rgb), 0.4) !important;
+    text-decoration: none !important;
 }
 
 /* Global color override: neutral palette on all pages */
@@ -1268,3 +1640,43 @@ button:hover {
     --light-background-rgb: 250,247,247 !important;
     --dark-text-rgb: 46,44,56 !important;
 }
+
+.embraced-section {
+    padding-bottom: 0 !important;
+}
+
+/* Keep contact (phone/email) visible down to 460px */
+@media (max-width: 1024px) and (min-width: 461px) {
+  .site-header.style-two .header-top { display: block !important; }
+  .site-header.style-two .header-top .container {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+  }
+  .site-header.style-two .header-top .header-left {
+      display: flex !important;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+  }
+  .site-header.style-two .header-top .header-block { font-size: 0.9rem; }
+}
+
+/* Slightly tighten text on very small tablets/large phones, still above 460px */
+@media (max-width: 600px) and (min-width: 461px) {
+  .site-header.style-two .header-top .header-block { font-size: 0.85rem; }
+}
+
+/* On very small phones hide the contact row to avoid crowding; still available in mobile menu */
+@media (max-width: 460px) {
+  /* Hide the entire top bar on very small phones to keep header minimal */
+  .site-header.style-two .header-top { display: none !important; }
+  .site-header.style-two .header-top .header-left,
+  .site-header.style-two .header-top .header-right { display: none !important; }
+  /* Ensure mobile header (logo + hamburger) is visible */
+  .mobile-header { display: block !important; }
+}
+
+

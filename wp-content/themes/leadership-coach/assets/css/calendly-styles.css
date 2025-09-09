@@ -72,6 +72,17 @@
     border-radius: 12px;
     text-align: center;
 }
+/* Ensure no underline on booking action links */
+.alternative-booking a.btn-primary,
+.alternative-booking a.btn-secondary {
+    text-decoration: none !important;
+}
+.alternative-booking a.btn-primary:hover,
+.alternative-booking a.btn-secondary:hover,
+.alternative-booking a.btn-primary:focus,
+.alternative-booking a.btn-secondary:focus {
+    text-decoration: none !important;
+}
 
 .alternative-booking h3 {
     color: var(--primary-purple);
@@ -163,6 +174,7 @@
 .external-icon {
     font-size: 0.9rem;
     transition: transform 0.3s ease;
+    display: none; /* hide external icon arrows */
 }
 
 .calendly-link:hover .external-icon {

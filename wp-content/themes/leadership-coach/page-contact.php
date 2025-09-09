@@ -156,7 +156,7 @@ get_header(); ?>
                                 
                                 <div class="form-group">
                                     <button type="submit" class="btn-primary contact-submit">
-                                        <?php esc_html_e( 'Open Email Composer', 'leadership-coach' ); ?>
+                                        <?php esc_html_e( 'Send Email', 'leadership-coach' ); ?>
                                     </button>
                                 </div>
                             </form>

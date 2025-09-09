@@ -18,7 +18,15 @@ get_header(); ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 
 
-                <?php if ( has_post_thumbnail() ) : ?>
+                <?php 
+                    $about_override_id = absint( get_theme_mod( 'lc_about_page_image' ) );
+                    $about_override_url = $about_override_id ? wp_get_attachment_image_url( $about_override_id, 'full' ) : '';
+                ?>
+                <?php if ( $about_override_id ) : ?>
+                    <div class="featured-image">
+                        <?php echo wp_get_attachment_image( $about_override_id, 'large', false, array( 'class' => 'about-hero-image', 'loading' => 'lazy' ) ); ?>
+                    </div>
+                <?php elseif ( has_post_thumbnail() ) : ?>
                     <div class="featured-image">
                         <?php the_post_thumbnail( 'large', array( 'class' => 'about-hero-image' ) ); ?>
                     </div>

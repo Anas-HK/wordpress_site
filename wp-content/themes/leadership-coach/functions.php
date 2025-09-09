@@ -40,9 +40,21 @@ function leadership_coach_styles()
 
     // Enqueue responsive styles
     wp_enqueue_style('leadership-coach-responsive', get_stylesheet_directory_uri() . '/assets/css/responsive.css', array('leadership-coach-custom'), $version);
+    
+    // Enqueue spacing fix styles
+    wp_enqueue_style('leadership-coach-spacing-fix', get_stylesheet_directory_uri() . '/assets/css/spacing-fix.css', array('leadership-coach-responsive'), $version);
 
     // Enqueue Google Fonts for enhanced typography
     wp_enqueue_style('leadership-coach-fonts', leadership_coach_fonts_url(), array(), $version);
+
+    // Site-wide JS: mobile menu quality-of-life (outside click to close, ESC to close)
+    wp_enqueue_script(
+        'leadership-coach-mobile-menu',
+        get_stylesheet_directory_uri() . '/assets/js/mobile-menu.js',
+    array(),
+    filemtime(get_stylesheet_directory() . '/assets/js/mobile-menu.js'),
+        true
+    );
 }
 add_action('wp_enqueue_scripts', 'leadership_coach_styles', 10);
 
@@ -1652,19 +1664,249 @@ function leadership_coach_contact_customizer($wp_customize)
 add_action('customize_register', 'leadership_coach_contact_customizer');
 
 /**
- * Form 
+ * Homepage Images (Customizer)
+ * Allows setting three homepage images via the native Customizer:
+ * - EMBRACED Image 1 (left column, top)
+ * - EMBRACED Image 2 (left column, bottom)
+ * - About Image (About preview section)
  */
-function coachpress_lite_header_contact()
+function leadership_coach_homepage_images_customizer( $wp_customize ) {
+    // Add section under Appearance panel for consistency with theme settings
+    $wp_customize->add_section(
+        'homepage_images',
+        array(
+            'title'       => __( 'Homepage Images', 'leadership-coach' ),
+            'priority'    => 36,
+            'panel'       => 'appearance_settings',
+            'description' => __( 'Upload images for the homepage EMBRACED section and About preview.', 'leadership-coach' ),
+        )
+    );
+
+    // EMBRACED Image 1
+    $wp_customize->add_setting(
+        'lc_home_embraced_image_1',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_embraced_image_1',
+            array(
+                'label'      => __( 'EMBRACED Image 1', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Top image in the left column of the EMBRACED section.', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // EMBRACED Image 2
+    $wp_customize->add_setting(
+        'lc_home_embraced_image_2',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_embraced_image_2',
+            array(
+                'label'      => __( 'EMBRACED Image 2', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Bottom image in the left column of the EMBRACED section.', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // EMBRACED Image 3 (optional)
+    $wp_customize->add_setting(
+        'lc_home_embraced_image_3',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_embraced_image_3',
+            array(
+                'label'      => __( 'EMBRACED Image 3', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Additional image for the EMBRACED section (beneath Image 2).', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // EMBRACED Image 4 (optional)
+    $wp_customize->add_setting(
+        'lc_home_embraced_image_4',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_embraced_image_4',
+            array(
+                'label'      => __( 'EMBRACED Image 4', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Additional image for the EMBRACED section (beneath Image 3).', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // About Image
+    $wp_customize->add_setting(
+        'lc_home_about_image',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_about_image',
+            array(
+                'label'      => __( 'About Image', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Image shown in the About preview section on the homepage.', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // Hero background image
+    $wp_customize->add_setting(
+        'lc_home_hero_bg',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_hero_bg',
+            array(
+                'label'      => __( 'Hero Background Image', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Optional background image for the hero. A soft gradient overlay is applied for readability.', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // "Why Parenting Can Feel Overwhelming" image
+    $wp_customize->add_setting(
+        'lc_home_challenges_image',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_challenges_image',
+            array(
+                'label'      => __( 'Challenges Section Image', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Image displayed in the "Why Parenting Can Feel Overwhelming" section (homepage).', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // "From My Heart to Yours" final CTA image
+    $wp_customize->add_setting(
+        'lc_home_final_cta_image',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_home_final_cta_image',
+            array(
+                'label'      => __( 'Final CTA Image (From My Heart to Yours)', 'leadership-coach' ),
+                'section'    => 'homepage_images',
+                'mime_type'  => 'image',
+                'description'=> __( 'Image displayed in the final call-to-action section on the homepage.', 'leadership-coach' ),
+            )
+        )
+    );
+
+    // About Page - Optional hero image override (uses Featured Image by default)
+    $wp_customize->add_section(
+        'about_page_media',
+        array(
+            'title'       => __( 'About Page Media', 'leadership-coach' ),
+            'priority'    => 37,
+            'panel'       => 'appearance_settings',
+            'description' => __( 'Optional About page hero image override. If not set, the About page Featured Image is used.', 'leadership-coach' ),
+        )
+    );
+    $wp_customize->add_setting(
+        'lc_about_page_image',
+        array(
+            'default'           => 0,
+            'sanitize_callback' => 'absint',
+        )
+    );
+    $wp_customize->add_control(
+        new WP_Customize_Media_Control(
+            $wp_customize,
+            'lc_about_page_image',
+            array(
+                'label'      => __( 'About Page Hero Image', 'leadership-coach' ),
+                'section'    => 'about_page_media',
+                'mime_type'  => 'image',
+                'description'=> __( 'Displayed at the top of the About page. Uses Featured Image if left empty.', 'leadership-coach' ),
+            )
+        )
+    );
+}
+add_action( 'customize_register', 'leadership_coach_homepage_images_customizer', 50 );
+
+/**
+ * Header contact strip (left side of the top bar)
+ * Compatible with the parent theme signature.
+ */
+function coachpress_lite_header_contact($set_mob = false)
 {
     $phone = get_theme_mod('phone');
     $email = get_theme_mod('email');
 
-    if ($phone || $email) :
-        echo '<div class="header-left">';
-        if (!empty($phone)) echo '<div class="header-block"><i class="fas fa-phone"></i><a href="tel:' . preg_replace('/[^\d+]/', '', $phone) . '">' . esc_html($phone) . '</a></div>';
-        if (!empty($email)) echo '<div class="header-block"><i class="fas fa-envelope"></i><a href="mailto:' . sanitize_email($email) . '">' . sanitize_email($email) . '</a></div>';
-        echo '</div>';
-    endif;
+    // Sensible fallback to always show something when not configured yet
+    if (empty($email)) {
+        $email = get_option('admin_email');
+    }
+
+    echo ( $set_mob ) ? '<div class="header-center">' : '<div class="header-left">';
+
+    if (!empty($phone)) {
+        echo '<div class="header-block"><i class="fas fa-phone"></i><a href="tel:' . preg_replace('/[^\d+]/', '', $phone) . '" class="phone">' . esc_html($phone) . '</a></div>';
+    }
+
+    if (!empty($email)) {
+        echo '<div class="header-block"><i class="fas fa-envelope"></i><a href="mailto:' . sanitize_email($email) . '" class="email">' . sanitize_email($email) . '</a></div>';
+    }
+
+    echo '</div>';
 }
 
 /**
@@ -1687,25 +1929,49 @@ function coachpress_lite_header()
         <div class="header-top">
             <div class="container">
                 <?php
+                // Left: phone and email (editable in Customizer > Contact Information)
                 coachpress_lite_header_contact();
-
-                if (coachpress_lite_social_links(false)) {
-                    echo '<div class="header-center">
-                        <div class="header-social">';
-                    coachpress_lite_social_links();
-                    echo '</div>
-                    </div>';
-                } ?>
+                ?>
 
                 <div class="header-right">
                     <?php
-                    if ($ed_search) coachpress_lite_header_search();
-                    if (coachpress_lite_is_woocommerce_activated() && $ed_cart) {
-                        echo '<div class="header-cart">';
-                        coachpress_lite_wc_cart_count();
+                    // Move social links to the top-right (render if enabled or data exists)
+                    $ed_social = get_theme_mod('ed_social_links', false);
+                    $social_links = get_theme_mod('social_links', '');
+                    if ( $ed_social || ! empty($social_links) ) {
+                        echo '<div class="header-social">';
+                        if (function_exists('coachpress_lite_social_links')) {
+                            // Use parent renderer if available
+                            coachpress_lite_social_links();
+                        } else if (is_array($social_links)) {
+                            // Minimal fallback renderer
+                            echo '<ul class="social-list">';
+                            foreach ($social_links as $link) {
+                                if (!empty($link['link'])) {
+                                    $icon = !empty($link['font']) ? $link['font'] : 'fas fa-link';
+                                    echo '<li><a href="' . esc_url($link['link']) . '" target="_blank" rel="nofollow noopener"><i class="' . esc_attr($icon) . '"></i></a></li>';
+                                }
+                            }
+                            echo '</ul>';
+                        }
                         echo '</div>';
-                    } ?>
-                    <?php coachpress_lite_secondary_navigation(); ?>
+                    }
+
+                    // Search and cart (if enabled)
+                    if ($ed_search) coachpress_lite_header_search();
+                    if (function_exists('coachpress_lite_is_woocommerce_activated') && coachpress_lite_is_woocommerce_activated() && $ed_cart) {
+                        echo '<div class="header-cart">';
+                        if (function_exists('coachpress_lite_wc_cart_count')) {
+                            coachpress_lite_wc_cart_count();
+                        }
+                        echo '</div>';
+                    }
+
+                    // Secondary menu toggle (as supplied by the parent theme)
+                    if (function_exists('coachpress_lite_secondary_navigation')) {
+                        coachpress_lite_secondary_navigation();
+                    }
+                    ?>
                 </div>
             </div>
         </div> <!-- .header-top end -->
@@ -1837,6 +2103,19 @@ function coachpress_lite_footer_bottom()
             </svg>
         </button><!-- .back-to-top -->
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function adjustBodyPadding() {
+                var header = document.getElementById("masthead");
+                if (header) {
+                    document.body.style.paddingTop = header.offsetHeight + "px";
+                }
+            }
+            adjustBodyPadding();
+            window.addEventListener("resize", adjustBodyPadding);
+        });
+    </script>
+
 <?php
 }
 
@@ -2097,6 +2376,7 @@ function leadership_coach_dynamic_css()
 <?php echo "</style>";
 }
 add_action('wp_head', 'leadership_coach_dynamic_css', 99);
+
 
 /**
  * Returns Home Sections 
@@ -2621,6 +2901,17 @@ function leadership_coach_enqueue_additional_styles() {
         array('leadership-coach'),
         '1.0.0'
     );
+
+    // Front page UX helpers (layout tweaks, etc.)
+    if (is_front_page()) {
+        wp_enqueue_script(
+            'home-layout',
+            get_stylesheet_directory_uri() . '/assets/js/homepage-layout.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
     
     // Enqueue Calendly styles and scripts on calendar page
     if (is_page_template('page-calendar.php') || is_page('calendar')) {
@@ -2670,6 +2961,7 @@ function leadership_coach_enqueue_additional_styles() {
     }
 }
 add_action('wp_enqueue_scripts', 'leadership_coach_enqueue_additional_styles');
+
 
 
 /**

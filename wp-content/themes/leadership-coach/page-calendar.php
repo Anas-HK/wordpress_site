@@ -125,7 +125,7 @@ get_header(); ?>
                         margin-bottom: 1.5rem;
                     }
                     
-                    /* Button Styles */
+                    /* Button Styles (reverted): primary filled gradient, secondary outline */
                     .btn-primary, .btn-secondary {
                         display: inline-flex;
                         align-items: center;
@@ -140,31 +140,52 @@ get_header(); ?>
                         cursor: pointer;
                     }
                     
-                    .btn-primary {
-                        background: linear-gradient(135deg, var(--primary-purple), var(--secondary-lilac));
-                        color: white;
-                        box-shadow: 0 4px 15px rgba(var(--primary-purple-rgb), 0.3);
-                    }
-                    
-                    .btn-primary:hover {
-                        transform: translateY(-2px);
-                        box-shadow: 0 8px 25px rgba(var(--primary-purple-rgb), 0.4);
-                        color: white;
-                    }
-                    
+                    /* Both buttons now use identical filled style with white text */
+                    .btn-primary,
                     .btn-secondary {
-                        background: white;
-                        color: var(--primary-purple);
-                        border: 2px solid var(--primary-purple);
-                    }
-                    
-                    .btn-secondary:hover {
                         background: var(--primary-purple);
-                        color: white;
-                        transform: translateY(-2px);
+                        color: white !important;
+                        border: 2px solid var(--primary-purple);
+                        box-shadow: none;
                     }
                     
-                    /* Success/Error Messages */
+                    /* Subtle hover for both buttons - keep purple background, add glow */
+                    .btn-primary:hover,
+                    .btn-secondary:hover {
+                        background: var(--secondary-lilac) !important;
+                        color: white !important;
+                        border-color: var(--secondary-lilac) !important;
+                        transform: translateY(-2px) !important;
+                        text-decoration: none !important;
+                        box-shadow: 0 8px 25px rgba(var(--primary-purple-rgb), 0.4) !important;
+                    }
+
+                    /* Hide any external icon glyphs inside the button, if present */
+                    .calendly-link .external-icon { display: none !important; }
+                    .calendly-fallback .btn-primary span { display: none !important; }
+                    
+                    /* Ensure all buttons stay visible in all states */
+                    .btn-primary,
+                    .btn-secondary,
+                    .alternative-booking .btn-primary,
+                    .alternative-booking .btn-secondary,
+                    .calendly-fallback .btn-primary {
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        display: inline-flex !important;
+                    }
+                    
+                    .btn-primary:hover,
+                    .btn-secondary:hover,
+                    .alternative-booking .btn-primary:hover,
+                    .alternative-booking .btn-secondary:hover,
+                    .calendly-fallback .btn-primary:hover {
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        display: inline-flex !important;
+                    }
+                    <style>
+                    /* Success Error Messages */
                     .form-message {
                         padding: 1rem;
                         border-radius: 8px;
@@ -197,11 +218,12 @@ get_header(); ?>
                         display: none !important;
                     }
 
-                    /* Ensure Contact Us button stays legible on hover */
+                    /* Ensure Contact Us button stays outlined on hover */
                     .alternative-booking .btn-secondary:hover {
-                        background: var(--primary-purple) !important;
-                        color: #ffffff !important;
-                        border-color: var(--primary-purple) !important;
+                        background: #ffffff !important;
+                        color: var(--primary-purple) !important;
+                        border-color: var(--secondary-lilac) !important;
+                        text-decoration: none !important;
                     }
                     </style>
                     
@@ -225,9 +247,8 @@ get_header(); ?>
                                 <div class="calendly-fallback" style="display: none;">
                                     <h4><?php esc_html_e('Unable to load calendar', 'leadership-coach'); ?></h4>
                                     <p><?php esc_html_e('Please use the appointment form on the right or visit our Calendly page directly.', 'leadership-coach'); ?></p>
-<a href="https://calendly.com/laraibsshaikh10/30min?hide_gdpr_banner=1&background_color=ffffff&text_color=2e2c38&primary_color=d4a5a5" target="_blank" rel="noopener" class="btn-primary">
+                                    <a href="https://calendly.com/laraibsshaikh10/30min?hide_gdpr_banner=1&background_color=ffffff&text_color=2e2c38&primary_color=d4a5a5" target="_blank" rel="noopener" class="btn-primary">
                                         <?php esc_html_e('Open Calendly Page', 'leadership-coach'); ?>
-                                        <span>↗</span>
                                     </a>
                                 </div>
                             </div>
@@ -289,9 +310,8 @@ var baseUrl = 'https://calendly.com/laraibsshaikh10/30min?hide_gdpr_banner=1&bac
                                 <div class="booking-option">
                                     <h4><?php esc_html_e('Direct Link', 'leadership-coach'); ?></h4>
                                     <p><?php esc_html_e('Visit our Calendly page directly:', 'leadership-coach'); ?></p>
-<a href="https://calendly.com/laraibsshaikh10/30min?hide_gdpr_banner=1&background_color=ffffff&text_color=2e2c38&primary_color=d4a5a5" target="_blank" rel="noopener" class="btn-primary calendly-link">
+                                    <a href="https://calendly.com/laraibsshaikh10/30min?hide_gdpr_banner=1&background_color=ffffff&text_color=2e2c38&primary_color=d4a5a5" target="_blank" rel="noopener" class="btn-primary calendly-link">
                                         <?php esc_html_e('Open Calendly', 'leadership-coach'); ?>
-                                        <span class="external-icon">↗</span>
                                     </a>
                                 </div>
 

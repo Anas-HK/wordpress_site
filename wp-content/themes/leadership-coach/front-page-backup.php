@@ -17,12 +17,11 @@ get_header(); ?>
         <?php 
             $hero_bg_id = absint( get_theme_mod( 'lc_home_hero_bg' ) );
             $hero_bg_url = $hero_bg_id ? wp_get_attachment_image_url( $hero_bg_id, 'full' ) : '';
+            $hero_style = $hero_bg_url ? 'background-image: linear-gradient(135deg, rgba(155,93,229,.65), rgba(203,166,247,.65)), url(' . esc_url( $hero_bg_url ) . ');' : '';
             $hero_class = $hero_bg_url ? ' hero-has-bg' : '';
+            $hero_attr  = $hero_style ? ' style="' . esc_attr( $hero_style ) . '"' : '';
         ?>
-        <section class="hero-section<?php echo esc_attr( $hero_class ); ?>">
-            <?php if ( $hero_bg_url ) : ?>
-                <div class="hero-bg" style="background-image: url('<?php echo esc_url( $hero_bg_url ); ?>');"></div>
-            <?php endif; ?>
+        <section class="hero-section<?php echo esc_attr( $hero_class ); ?>"<?php echo $hero_attr; ?>>
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-title">Welcome to EMBRACED Parenting</h1>
@@ -31,9 +30,9 @@ get_header(); ?>
                         that fosters understanding, emotional growth, and lasting bonds with your children.
                     </p>
                     <div class="hero-actions">
-                                            <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-secondary">Join Me in This Journey</a>
-                                            <a href="<?php echo home_url('/about'); ?>" class="btn btn-secondary">Learn More</a>
-                                        </div>
+                        <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-primary">Join Me in This Journey</a>
+                        <a href="<?php echo home_url('/about'); ?>" class="btn btn-secondary">Learn More</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -154,12 +153,10 @@ get_header(); ?>
                         </li>
                     </ul>
 
-                </div>
-            </div>
-            <div class="container">
-                <div class="framework-conclusion framework-conclusion-wide">
-                    <p>This approach is not about striving for perfection—it's about walking the journey with intention, heart, and connection.</p>
-                    <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-primary">Join Me in This Journey</a>
+                    <div class="framework-conclusion">
+                        <p>This approach is not about striving for perfection—it's about walking the journey with intention, heart, and connection.</p>
+                        <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-primary">Join Me in This Journey</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -260,9 +257,8 @@ get_header(); ?>
                         <cite>— Parent, 2024</cite>
                     </div>
                 </div>
-                <div class="testimonials-cta">
-                    <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-primary">Join Me on This Transformative Journey</a>
-                </div>
+                <p class="testimonials-note">💬 More testimonials coming soon!</p>
+                <a href="<?php echo home_url('/calendar'); ?>" class="btn btn-primary">Join Me on This Transformative Journey</a>
             </div>
         </section>
         
